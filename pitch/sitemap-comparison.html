@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAUDRAUF Sitemap Proposal</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #1E1E1E;
+    color: #FFFFFF;
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .top { padding: 28px 32px 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .top .proj { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #FFFFFF; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+  .lg { font-size: 11px; padding: 3px 10px; border-radius: 999px; border: 1px solid #4D4D4D; color: #CFCFCF; }
+  .lg i { display: inline-block; width: 7px; height: 7px; border-radius: 999px; margin-right: 6px; }
+  .lg .gDot { background: #4ADE80; } .lg .vDot { background: #A78BFA; } .lg .rDot { background: #F97066; }
+
+  .sectionHead { padding: 34px 32px 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .sectionHead .num { font-size: 12px; font-weight: 700; color: #8A8A8A; }
+  .sectionHead h2 { font-size: 18px; margin: 0; font-weight: 650; letter-spacing: 0.01em; }
+  .stats { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+  .stat { font-size: 11px; padding: 4px 11px; border-radius: 999px; border: 1px solid #6E3535; color: #FDA29B; }
+  .stat.good { border-color: #22543D; color: #86EFAC; }
+
+  .canvas { overflow-x: auto; padding: 10px 32px 40px; }
+  .tree { display: flex; flex-direction: column; align-items: center; min-width: max-content; }
+  .drop { width: 1px; height: 22px; background: #4D4D4D; }
+  ul.kids { display: flex; align-items: flex-start; list-style: none; margin: 0; padding: 0; }
+  ul.kids > li { position: relative; padding: 22px 12px 0; }
+  ul.kids > li::before { content: ""; position: absolute; top: 0; left: 50%; width: 1px; height: 22px; background: #4D4D4D; }
+  ul.kids > li::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: #4D4D4D; }
+  ul.kids > li:first-child::after { left: 50%; }
+  ul.kids > li:last-child::after { right: 50%; }
+  ul.kids > li:only-child::after { display: none; }
+
+  .pcard { width: 220px; }
+  .pcard.home { width: 260px; }
+  .ptitle {
+    background: #E4E2DF; color: #000000; border-radius: 7px; min-height: 36px;
+    display: flex; align-items: center; gap: 7px; padding: 6px 12px; margin-bottom: 8px;
+    font-size: 12px; font-weight: 650;
+  }
+  .ptitle svg { flex: none; }
+  .ptitle .spacer { margin-left: auto; }
+  .chip { font-size: 9px; font-weight: 700; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .chip.g { background: #DCFCE7; color: #067647; }
+  .chip.v { background: #EDE9FE; color: #5925DC; }
+  .chip.r { background: #FEE4E2; color: #B42318; }
+  .pbody { background: #FFFFFF; border-radius: 9px; padding: 10px; display: flex; flex-direction: column; gap: 9px; }
+  .row { background: #FFFFFF; border: 1px solid #000000; border-radius: 6px; padding: 8px 10px; font-size: 11px; font-weight: 600; color: #000000; line-height: 1.35; }
+  .row .chip { margin-left: 5px; vertical-align: 1px; display: inline-block; max-width: 100%; white-space: normal; }
+  .row.bad { border-color: #F04438; color: #B42318; }
+  .row.soft { border-color: #B5B5B5; color: #6F6F6F; font-weight: 500; }
+  .row.new { border-color: #12B76A; }
+  .row.moved { border-color: #7A5AF8; }
+  .qs { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .q { font-size: 9px; font-weight: 700; letter-spacing: .04em; padding: 2px 6px; border-radius: 4px; background: #1E1E1E; color: #FFFFFF; text-decoration: none; }
+  .q:hover { background: #CD3126; }
+  .lg .qDot { background: #FFFFFF; border-radius: 2px; }
+  .lg .oDot { background: transparent; outline: 1.5px dashed #7CA3FF; }
+
+  .foot { padding: 8px 32px 48px; font-size: 11.5px; color: #8A8A8A; max-width: 760px; line-height: 1.6; }
+  @media (max-width: 720px) {
+    .top, .sectionHead, .foot { padding-left: 16px; padding-right: 16px; }
+    .canvas { padding-left: 16px; padding-right: 16px; }
+    .legend, .stats { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="proj"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#fff" stroke-width="1.4"/></svg>BAUDRAUF · sitemap, proposed vs today</div>
+  <div class="legend">
+    <span class="lg"><i class="gDot"></i>new page or section</span>
+    <span class="lg"><i class="vDot"></i>merged, moved or renamed (301)</span>
+    <span class="lg"><i class="rDot"></i>confirmed problem today</span>
+    <span class="lg"><i class="oDot"></i>off-site: where AI engines check you</span>
+  </div>
+</div>
+
+<div class="sectionHead">
+  <span class="num">01</span><h2>Proposed structure</h2>
+  <div class="stats">
+    <span class="stat good">every service page shows its local projects</span>
+    <span class="stat good">one dated fact sheet feeds site, schema, llms.txt</span>
+    <span class="stat good">no ranking URL removed</span>
+  </div>
+</div>
+<div class="canvas" id="c-new"><div class="tree" id="t-new"></div></div>
+
+<div class="sectionHead">
+  <span class="num">02</span><h2>The site today</h2>
+  <div class="stats">
+    <span class="stat">128 URLs, 3 mega menus</span>
+    <span class="stat">0 of 28 service pages name a district</span>
+    <span class="stat">about 38 of 42 posts on heat pumps</span>
+    <span class="stat">absent from 11 of 18 buyer searches</span>
+  </div>
+</div>
+<div class="canvas" id="c-old"><div class="tree" id="t-old"></div></div>
+
+<p class="foot">Green marks pages and sections that do not exist today. Violet marks pages that move, merge or get renamed; their old addresses redirect, so nothing that ranks today is lost. Red marks problems confirmed on the live site or in the search snapshot of October 9, 2026. The dashed card is not a page: it is where answer engines check what the site says. Scroll sideways to see each full structure. Prepared by Eldar Dizdarević.</p>
+
+<script src="sitemap-data.js"></script>
+<script>
+BD_renderSitemap('t-new', BD_NEW, { noQ: true });
+BD_renderSitemap('t-old', BD_OLD);
+// centre each canvas on its Home card
+window.addEventListener('load', () => document.querySelectorAll('.canvas').forEach(c => { c.scrollLeft = (c.scrollWidth - c.clientWidth) / 2; }));
+</script>
+</body>
+</html>

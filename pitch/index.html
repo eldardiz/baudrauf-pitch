@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAUDRAUF Website Proposal</title>
+<meta name="description" content="A first look at a new homepage, a clearer sitemap and AI search for BAUDRAUF GmbH.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../brand/baudrauf-apple-touch-icon-180.png">
+<style>
+@font-face { font-family: "Aspekta"; src: url("../mockup/fonts/AspektaVF.woff2") format("woff2"); font-weight: 100 1000; font-display: swap; }
+:root {
+  --light: #f4f3f0; --dark: #171615; --sand: #cfc9be; --stone: #9f998f; --accent: #cd3126; --accent-hover: #b4291f; --white: #fbfaf8;
+  --d8: color-mix(in srgb, var(--dark) 8%, transparent); --d16: color-mix(in srgb, var(--dark) 16%, transparent);
+  --d48: color-mix(in srgb, var(--dark) 48%, transparent); --d64: color-mix(in srgb, var(--dark) 64%, transparent);
+  --d88: color-mix(in srgb, var(--dark) 88%, transparent); --l88: color-mix(in srgb, var(--light) 88%, transparent);
+  --ok: #2f7d4f; --miss: #b42318;
+}
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { margin: 0; background: var(--light); color: var(--dark); font-family: "Aspekta", Arial, sans-serif; font-size: 16px; line-height: 24px; letter-spacing: .2px; }
+a { color: inherit; } img { display: block; max-width: 100%; }
+h1, h2, h3 { margin: 0; font-weight: 500; } p { margin: 0; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+.label { font-size: 11px; line-height: 14px; letter-spacing: 1px; font-weight: 500; text-transform: uppercase; }
+.eyebrow { display: inline-flex; align-items: center; gap: 12px; color: var(--d88); }
+.eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--stone); }
+.muted { color: var(--d64); }
+.h1 { font-size: 68px; line-height: 64px; letter-spacing: -3px; }
+.h2 { font-size: 48px; line-height: 46px; letter-spacing: -2px; }
+.h3 { font-size: 20px; line-height: 26px; letter-spacing: -.3px; }
+.lead { font-size: 19px; line-height: 29px; color: var(--d88); max-width: 760px; }
+
+.bar { position: sticky; top: 0; z-index: 50; background: var(--light); border-bottom: 1px solid var(--d8); }
+.bar .wrap { display: flex; align-items: center; gap: 20px; height: 64px; }
+.bar img { height: 34px; width: auto; }
+.bar nav { display: flex; gap: 4px; margin-left: auto; }
+.bar nav a { text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 12px; }
+.bar nav a:hover { background: var(--accent); color: var(--white); }
+.bar .pdf { text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 14px; background: var(--accent); color: var(--white); }
+
+.cover { padding: 88px 0 72px; }
+.cover .h1 { max-width: 860px; margin: 24px 0; }
+.position { margin-top: 48px; background: var(--dark); color: var(--light); padding: 36px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 36px; align-items: center; }
+.position .line { font-size: 40px; line-height: 42px; letter-spacing: -1.5px; font-weight: 500; }
+.position p { color: var(--l88); } .position .label { color: var(--stone); display: block; margin-bottom: 12px; }
+
+.chapter { padding: 88px 0; border-top: 1px solid var(--d8); }
+.ch-head { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; max-width: 820px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; font-weight: 600; text-decoration: none; background: var(--accent); color: var(--white); align-self: flex-start; }
+.btn:hover { background: var(--accent-hover); }
+.btn.ghost { background: transparent; color: var(--dark); border: 1.5px solid var(--d48); }
+.btn.ghost:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+.shots { display: grid; grid-template-columns: 2.2fr 1fr; gap: 16px; }
+.shots img { width: 100%; border: 1px solid var(--d8); }
+.shots .mob { aspect-ratio: 390 / 844; object-fit: cover; object-position: top; }
+.cards { margin-top: 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.cards > div { background: var(--white); border: 1px solid var(--d8); padding: 20px; display: flex; flex-direction: column; gap: 6px; }
+.cards .was { font-size: 13px; color: var(--d64); text-decoration: line-through; }
+.cards.three { grid-template-columns: repeat(3, 1fr); margin-top: 0; }
+.cards.three > div { padding: 24px; gap: 10px; }
+
+.sm { background: #1e1e1e; color: #fff; margin-top: 40px; }
+.sm .canvas { overflow-x: auto; padding: 24px; }
+.tree { display: flex; flex-direction: column; align-items: center; min-width: max-content; }
+.drop { width: 1px; height: 22px; background: #4d4d4d; }
+ul.kids { display: flex; align-items: flex-start; list-style: none; margin: 0; padding: 0; }
+ul.kids > li { position: relative; padding: 22px 10px 0; }
+ul.kids > li::before { content: ""; position: absolute; top: 0; left: 50%; width: 1px; height: 22px; background: #4d4d4d; }
+ul.kids > li::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: #4d4d4d; }
+ul.kids > li:first-child::after { left: 50%; } ul.kids > li:last-child::after { right: 50%; }
+.pcard { width: 210px; } .pcard.home { width: 270px; }
+.ptitle { background: #e4e2df; color: #000; border-radius: 7px; min-height: 36px; display: flex; align-items: center; gap: 7px; padding: 6px 12px; margin-bottom: 8px; font-size: 12px; font-weight: 650; }
+.ptitle .spacer { margin-left: auto; }
+.chip { font-size: 9px; font-weight: 700; letter-spacing: .04em; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+.chip.g { background: #dcfce7; color: #067647; } .chip.v { background: #ede9fe; color: #5925dc; } .chip.r { background: #fee4e2; color: #b42318; }
+.pbody { background: #fff; border-radius: 9px; padding: 10px; display: flex; flex-direction: column; gap: 9px; }
+.row { background: #fff; border: 1px solid #000; border-radius: 6px; padding: 8px 10px; font-size: 11px; font-weight: 600; color: #000; line-height: 1.35; letter-spacing: 0; }
+.row .chip { margin-left: 5px; display: inline-block; white-space: normal; }
+.row.soft { border-color: #b5b5b5; color: #6f6f6f; font-weight: 500; } .row.new { border-color: #12b76a; } .row.moved { border-color: #7a5af8; }
+.sm-legend { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 24px 0; }
+.sm-legend span { font-size: 11px; padding: 3px 10px; border-radius: 999px; border: 1px solid #4d4d4d; color: #cfcfcf; }
+.sm-print { display: none; margin-top: 16px; }
+.sm-print table { width: 100%; border-collapse: collapse; font-size: 11px; line-height: 15px; }
+.sm-print td { border-bottom: 1px solid var(--d8); padding: 6px 4px; vertical-align: top; }
+.sm-print td:first-child { font-weight: 600; width: 22%; }
+.sm-print .tag { font-size: 9px; font-weight: 700; padding: 1px 5px; margin-left: 4px; }
+.sm-print .tag.new { background: #dcfce7; color: #067647; } .sm-print .tag.moved { background: #ede9fe; color: #5925dc; }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0 24px; }
+.stat { background: var(--white); border: 1px solid var(--d8); padding: 22px; display: flex; flex-direction: column; gap: 8px; }
+.stat .v { font-size: 44px; line-height: 42px; letter-spacing: -2px; font-weight: 500; }
+table.snap { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 21px; }
+.snap th { text-align: left; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; color: var(--d64); padding: 10px 8px; border-bottom: 1px solid var(--d16); }
+.snap td { padding: 12px 8px; border-bottom: 1px solid var(--d8); vertical-align: middle; }
+.snap .eng { text-align: center; width: 120px; }
+.dot { display: inline-block; padding: 2px 8px; font-size: 12px; font-weight: 600; }
+.dot.no { background: color-mix(in srgb, var(--miss) 10%, transparent); color: var(--miss); }
+.dot.yes { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); }
+.dot.na { color: var(--d48); }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+.steps > div { border-top: 2px solid var(--accent); padding-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.steps .k { font-size: 13px; font-weight: 600; color: var(--accent); }
+.steps ul { margin: 4px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; color: var(--d88); }
+.next { background: var(--dark); color: var(--light); padding: 40px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
+.next ul { margin: 12px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; color: var(--l88); }
+.next .label { color: var(--stone); }
+.foot { padding: 40px 0 56px; color: var(--d64); font-size: 13px; line-height: 20px; }
+
+@media screen and (max-width: 900px) {
+  .h1 { font-size: 46px; line-height: 46px; letter-spacing: -2px; } .h2 { font-size: 36px; line-height: 36px; }
+  .position, .shots, .cards, .cards.three, .steps, .stats, .next { grid-template-columns: 1fr; }
+  .bar nav { display: none; } .wrap { padding: 0 16px; } .position .line { font-size: 30px; line-height: 32px; }
+  .snap .eng { width: auto; } .snap { font-size: 13px; } .snap .dot { padding: 2px 4px; }
+}
+
+@page { size: A4; margin: 14mm 12mm; }
+@media print {
+  body { background: #fff; font-size: 11px; line-height: 16px; }
+  .bar, .no-print, .sm { display: none !important; }
+  .sm-print { display: block; }
+  .wrap { max-width: none; padding: 0; }
+  .cover { padding: 18mm 0 0; }
+  .h1 { font-size: 42px; line-height: 40px; } .h2 { font-size: 30px; line-height: 30px; } .h3 { font-size: 14px; line-height: 18px; }
+  .lead { font-size: 13px; line-height: 19px; }
+  .chapter { padding: 0; border: 0; break-before: page; }
+  .ch-head { margin-bottom: 18px; }
+  .position { padding: 18px; margin-top: 10mm; } .position .line { font-size: 26px; line-height: 28px; }
+  .shots img { max-height: 110mm; object-fit: cover; object-position: top; }
+  .cards > div, .steps > div, .stat, .next, tr { break-inside: avoid; }
+  .stat .v { font-size: 30px; line-height: 30px; }
+  .snap { font-size: 11px; line-height: 15px; } .snap td, .snap th { padding: 7px 6px; }
+  .eyebrow { break-after: avoid; }
+  .next { padding: 24px; }
+  #next.chapter { break-before: auto; padding-top: 10mm; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <img src="../brand/baudrauf-logo-color-471x300.png" alt="BAUDRAUF" width="53" height="34">
+    <span class="label muted">Website proposal</span>
+    <nav aria-label="Chapters"><a href="#homepage">Homepage</a><a href="#sitemap">Sitemap</a><a href="#ai">AI search</a><a href="#next">Next step</a></nav>
+    <a class="pdf" href="BAUDRAUF-Website-Vorschlag.pdf" download>PDF</a>
+  </div>
+</header>
+
+<main>
+<section class="cover">
+  <div class="wrap">
+    <span class="eyebrow label">For BAUDRAUF GmbH · October 2026 · A first look, not published</span>
+    <h1 class="h1">A website that says what BAUDRAUF really does.</h1>
+    <p class="lead">A new homepage, a clearer sitemap and a few steps so AI assistants like ChatGPT name you when people ask for a contractor in Vienna. All three rest on one idea and one set of facts.</p>
+    <div class="position">
+      <div><span class="label">The line we propose</span><div class="line">Bau und Haustechnik. Aus einer Hand.</div></div>
+      <p>Building work and building services from one company that holds both trade licences. A renovation and the new heating, planned together. Few firms in Vienna say this clearly, and it is exactly what people now ask AI assistants.</p>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="homepage">
+  <div class="wrap">
+    <div class="ch-head">
+      <span class="eyebrow label">01 · Homepage</span>
+      <h2 class="h2">Proof first, one action, your own work.</h2>
+      <p class="lead">Every photo, project, client logo and quote is yours, taken from baudrauf.at.</p>
+      <a class="btn no-print" href="../mockup/index.html" target="_blank" rel="noopener">Open the concept →</a>
+    </div>
+    <div class="shots">
+      <img src="assets/home-01-hero.jpg" alt="New BAUDRAUF homepage, desktop">
+      <img class="mob" src="assets/home-mobile-hero.jpg" alt="New BAUDRAUF homepage on a phone">
+    </div>
+    <div class="cards">
+      <div><span class="was">about 14 screens</span><strong>10 clear sections</strong></div>
+      <div><span class="was">11 different buttons</span><strong>One action: "Projekt anfragen"</strong></div>
+      <div><span class="was">8 form screens</span><strong>One short form</strong></div>
+      <div><span class="was">points about "other companies"</span><strong>Your clients, projects and reviews</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="sitemap">
+  <div class="wrap">
+    <div class="ch-head">
+      <span class="eyebrow label">02 · Sitemap</span>
+      <h2 class="h2">Every page stays. Three new ones.</h2>
+      <p class="lead">Your service pages keep their addresses, so nothing that ranks today is lost. The menu gets simpler, and three pages cover work you already do but nobody can find.</p>
+      <a class="btn ghost no-print" href="sitemap-comparison.html" target="_blank" rel="noopener">Compare with the site today →</a>
+    </div>
+    <div class="cards three">
+      <div><span class="label muted">New</span><h3 class="h3">Sanierung + Heizung</h3><p class="muted">The renovation and the switch from gas to a heat pump as one project, one contract.</p></div>
+      <div><span class="label muted">New</span><h3 class="h3">Für Unternehmen</h3><p class="muted">Property managers, insurers, shops and Gastro. You already work for them; the site does not say so.</p></div>
+      <div><span class="label muted">One dated source</span><h3 class="h3">Kosten &amp; Förderung</h3><p class="muted">Prices and subsidies in one place, with a date, so no page contradicts another.</p></div>
+    </div>
+    <div class="sm-print" id="smPrint"></div>
+  </div>
+  <div class="sm no-print">
+    <div class="sm-legend"><span>green: new</span><span>violet: moved or merged (old address redirects)</span></div>
+    <div class="canvas" id="smCanvas"><div class="tree" id="smTree"></div></div>
+  </div>
+</section>
+
+<section class="chapter" id="ai">
+  <div class="wrap">
+    <div class="ch-head">
+      <span class="eyebrow label">03 · AI search</span>
+      <h2 class="h2">Being the firm the AI names.</h2>
+      <p class="lead">More people ask ChatGPT or Google's AI which company to hire. The assistant names two or three firms. Here is where BAUDRAUF stands today.</p>
+    </div>
+    <span class="eyebrow label">A quick snapshot</span>
+    <div class="stats">
+      <div class="stat"><span class="v">7 of 18</span><span class="muted">common searches where baudrauf.at shows up at all</span></div>
+      <div class="stat"><span class="v">0 of 3</span><span class="muted">bathroom searches, although Badsanierung is a core service</span></div>
+      <div class="stat"><span class="v" id="aiNamed">…</span><span class="muted">AI answers to buyer questions that name BAUDRAUF. All of them come from the "renovation plus heat pump" question.</span></div>
+    </div>
+    <table class="snap" id="snap"></table>
+    <p class="muted" style="font-size:13px;margin-top:12px" id="snapNote"></p>
+
+    <span class="eyebrow label" style="display:flex;margin-top:56px">What we would do</span>
+    <div class="steps">
+      <div><span class="k">1 · One set of facts</span><h3 class="h3">So every source agrees on who you are</h3><ul><li>Remove contradictions, like "25+ Jahre" next to "seit 2015". Today an AI already calls you "relativ jung"</li><li>Date every subsidy statement</li><li>The same facts on the site, Google and the directories</li></ul></div>
+      <div><span class="k">2 · Pages that answer</span><h3 class="h3">So the AI has something to quote</h3><ul><li>Each service page opens with a direct answer: what, where, rough cost, how long</li><li>Your 37 references linked to the right services</li><li>The three new pages above</li></ul></div>
+      <div><span class="k">3 · Proof elsewhere</span><h3 class="h3">So others confirm what you say</h3><ul><li>More Google reviews, asked for at every handover</li><li>Listed where people ask "who should I hire", such as daibau and my-hammer</li><li>Your customer videos with a written transcript</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="next">
+  <div class="wrap">
+    <div class="next">
+      <div><span class="label">Next step</span><h2 class="h2" style="margin-top:12px">A short call to see if this fits.</h2><p style="margin-top:16px;color:var(--l88)">If the direction feels right, we agree the scope together and start with the facts and the homepage.</p></div>
+      <div><span class="label">Good to talk about</span><ul><li>Which services matter most to you right now?</li><li>Which numbers on the site can we confirm, for example "1000+ Projekte"?</li><li>Who looks after the website today?</li></ul></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap">Prepared by Eldar Dizdarević for BAUDRAUF GmbH. Facts from baudrauf.at, Google Maps and the company register, checked in October 2026. Search snapshot: 18 searches on 9 October 2026. AI snapshot: five questions, one run each on 15 October 2026; AI answers change from day to day. A concept, not published.</div></footer>
+
+<script src="sitemap-data.js"></script>
+<script src="aeo-baseline.js"></script>
+<script>
+(() => {
+  const NEW = window.BD_NEW, B = window.BD_BASELINE;
+  BD_renderSitemap('smTree', NEW, { noQ: true });
+  const c = document.getElementById('smCanvas'); addEventListener('load', () => { c.scrollLeft = (c.scrollWidth - c.clientWidth) / 2; });
+  const tag = (t, ch) => t === 'new' ? `<span class="tag new">${ch || 'neu'}</span>` : t === 'moved' ? `<span class="tag moved">${ch || 'verschoben'}</span>` : '';
+  document.getElementById('smPrint').innerHTML = '<table>' + NEW.kids.filter(k => !k.offsite).map(k => `<tr><td>${k.title}</td><td>${k.rows.map(([l, t, ch]) => `${l}${tag(t, ch)}`).join(' · ')}</td></tr>`).join('') + '</table>';
+
+  // AI snapshot: five questions x four engines, filled from aeo-baseline.js only after Eldar confirms the labels
+  const IDS = ['P02', 'P06', 'P14', 'P19', 'P21'];
+  const E = { chatgpt: 'ChatGPT', aimode: 'Google AI Mode', google: 'AI Overview', perplexity: 'Perplexity' };
+  const cell = v => v === 'mentioned' || v === 'cited' ? '<span class="dot yes">named</span>' : v === 'cited-only' ? '<span class="dot na">source only</span>' : v === 'no' ? '<span class="dot no">not named</span>' : v === 'n/a' ? '<span class="dot na">no AI answer</span>' : '<span class="dot na">·</span>';
+  document.getElementById('snap').innerHTML = `<thead><tr><th>Question, as people type or ask it</th>${Object.values(E).map(e => `<th class="eng">${e}</th>`).join('')}</tr></thead><tbody>` +
+    IDS.map(q => `<tr><td>${window.BD_QUESTIONS[q]}</td>${Object.keys(E).map(e => `<td class="eng">${cell(B && B.results[q] ? B.results[q][e] : null)}</td>`).join('')}</tr>`).join('') + '</tbody>';
+  if (B) {
+    let n = 0, t = 0; IDS.filter(q => q !== 'P21').forEach(q => Object.keys(E).forEach(e => { const v = B.results[q] && B.results[q][e]; if (v && v !== 'n/a') { t++; if (v === 'mentioned' || v === 'cited') n++; } }));
+    document.getElementById('aiNamed').textContent = `${n} of ${t}`;
+    document.getElementById('snapNote').textContent = `Each answer checked by hand against its screenshot, ${B.date}. Firms named instead include ` + B.competitors.map(([x]) => x).join(', ') + '. When asked about BAUDRAUF by name, every engine knows you, but Perplexity calls you "relativ jung" because it reads the 2022 register date, not "seit 2015".';
+  } else { document.getElementById('aiNamed').textContent = 'checking'; document.getElementById('snapNote').textContent = 'Results appear once each answer is checked by hand.'; }
+})();
+</script>
+</body>
+</html>

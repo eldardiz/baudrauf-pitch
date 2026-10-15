@@ -1,0 +1,1068 @@
+<!doctype html>
+<html lang="de-AT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAUDRAUF Homepage Konzept</title>
+<meta name="description" content="Designkonzept für die BAUDRAUF Startseite. Generalunternehmen für Neubau, Sanierung und Gebäudetechnik in Wien und Niederösterreich.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../brand/baudrauf-apple-touch-icon-180.png">
+<style>
+/* Aspekta Variable, SIL OFL 1.1 (fonts/Aspekta-OFL.txt) */
+@font-face { font-family: "Aspekta"; src: url("fonts/AspektaVF.woff2") format("woff2"); font-weight: 100 1000; font-display: swap; }
+
+/* Tokens: Foster & Reeves system, BAUDRAUF accent (see docs/research/foster-reeves-spec.md) */
+:root {
+  --light: #f4f3f0;          /* foundation-white */
+  --dark: #171615;           /* was forest-obsidian #111a0d, neutralised for the red */
+  --sand: #cfc9be;           /* quarry-sand */
+  --stone: #9f998f;          /* stone-ledger */
+  --charcoal: #5e5a53;       /* charcoal-ledger */
+  --accent: #cd3126;         /* BAUDRAUF CTA red (was #e8fd53) */
+  --accent-hover: #b4291f;
+  --on-accent: #f4f3f0;
+  --d4: color-mix(in srgb, var(--dark) 4%, transparent);
+  --d8: color-mix(in srgb, var(--dark) 8%, transparent);
+  --d16: color-mix(in srgb, var(--dark) 16%, transparent);
+  --d32: color-mix(in srgb, var(--dark) 32%, transparent);
+  --d48: color-mix(in srgb, var(--dark) 48%, transparent);
+  --d64: color-mix(in srgb, var(--dark) 64%, transparent);
+  --d88: color-mix(in srgb, var(--dark) 88%, transparent);
+  --l8: color-mix(in srgb, var(--light) 8%, transparent);
+  --l16: color-mix(in srgb, var(--light) 16%, transparent);
+  --l32: color-mix(in srgb, var(--light) 32%, transparent);
+  --l48: color-mix(in srgb, var(--light) 48%, transparent);
+  --l64: color-mix(in srgb, var(--light) 64%, transparent);
+  --l88: color-mix(in srgb, var(--light) 88%, transparent);
+  --pad: 32px;
+  --gap: 16px;
+  --container: 1800px;
+  --ease-circ: cubic-bezier(0, .55, .45, 1);
+  --ease-inout-circ: cubic-bezier(.85, 0, .15, 1);
+}
+
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--light); color: var(--dark); font-family: "Aspekta", Arial, sans-serif; font-size: 16px; line-height: 24px; letter-spacing: .25px; font-weight: 400; overflow-x: clip; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, h5, h6, p { margin: 0; font-weight: 500; }
+p { font-weight: 400; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+/* Type scale (template values) */
+.h0 { font-size: 96px; line-height: 80px; letter-spacing: -4px; font-weight: 500; }
+.h1 { font-size: 80px; line-height: 72px; letter-spacing: -3px; font-weight: 500; }
+.h2 { font-size: 64px; line-height: 56px; letter-spacing: -2px; font-weight: 500; }
+.h3 { font-size: 48px; line-height: 44px; letter-spacing: -2px; font-weight: 500; }
+.h5 { font-size: 32px; line-height: 32px; letter-spacing: -1px; font-weight: 500; }
+.h6 { font-size: 24px; line-height: 28px; letter-spacing: -.5px; font-weight: 500; }
+.body-1 { font-size: 20px; line-height: 28px; letter-spacing: 0; }
+.small { font-size: 12px; line-height: 16px; letter-spacing: .25px; }
+.label-1 { font-size: 12px; line-height: 16px; letter-spacing: 1px; font-weight: 500; text-transform: uppercase; }
+.label-2 { font-size: 10px; line-height: 12px; letter-spacing: 1px; font-weight: 500; text-transform: uppercase; }
+.semibold { font-weight: 600; }
+.t-d64 { color: var(--d64); } .t-d88 { color: var(--d88); } .t-l64 { color: var(--l64); } .t-l88 { color: var(--l88); }
+.outlined { color: var(--light); -webkit-text-stroke: 1px var(--d48); }
+
+.container { position: relative; z-index: 2; width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 var(--pad); }
+.section { position: relative; z-index: 2; padding: 80px 0; }
+
+/* Fixed 5-line page grid (difference blend), part of the look */
+.bg-grid { position: fixed; inset: 0; z-index: 9; max-width: var(--container); height: 100vh; margin: 0 auto; padding: 0 24px; pointer-events: none; mix-blend-mode: difference; display: flex; justify-content: space-between; }
+.bg-grid span { width: 1px; height: 100%; background: var(--l8); }
+
+/* Eyebrow */
+.eyebrow { display: inline-flex; align-items: center; gap: 16px; color: var(--d88); }
+.eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--stone); flex: none; }
+.eyebrow.stone { color: var(--stone); }
+
+/* Buttons: label roll (split chars), separate bg layer that scales, arrow turns */
+.btn { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; font-size: 16px; line-height: 24px; letter-spacing: 0; font-weight: 600; color: var(--light); cursor: pointer; flex: none; white-space: nowrap; }
+.btn .bg { position: absolute; inset: 0; z-index: -1; border: 1.5px solid var(--l16); background: var(--dark); transition: transform .55s cubic-bezier(.22,1,.36,1), background-color .45s, border-color .45s; }
+.btn .mask { display: block; height: 24px; overflow: hidden; pointer-events: none; }
+.btn .lbl { display: block; position: relative; }
+.btn .lbl .ch { display: inline-block; white-space: pre; text-shadow: 0 1.5em 0 currentColor; transition: transform .635s cubic-bezier(.22,1,.36,1); }
+.btn:hover .lbl .ch { transform: translateY(-1.5em); }
+.btn:hover .bg { transform: scale(.95); }
+.btn .ico { width: 12px; height: 12px; display: flex; align-items: center; justify-content: flex-end; overflow: hidden; }
+.btn .ico svg { width: 12px; height: 12px; transition: transform .55s cubic-bezier(.22,1,.36,1); }
+.btn:hover .ico svg { transform: rotate(-45deg); }
+.btn.accent { color: var(--on-accent); }
+.btn.accent .bg { background: var(--accent); border-color: var(--d16); }
+.btn.accent:hover .bg { background: var(--accent-hover); }
+.btn.glass .bg { background: var(--d32); border-color: var(--l32); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.btn.glass:hover .bg, .btn.lightbtn:hover .bg, .btn.glass-dark:hover .bg, .btn.outline:hover .bg { background: var(--accent); border-color: var(--d16); }
+.btn.glass:hover, .btn.lightbtn:hover, .btn.glass-dark:hover, .btn.outline:hover { color: var(--on-accent); }
+.btn.lightbtn { color: var(--dark); }
+.btn.lightbtn .bg { background: var(--light); border-color: var(--d16); }
+.btn.glass-dark { color: var(--dark); }
+.btn.glass-dark .bg { background: var(--l32); border-color: var(--d32); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.btn.outline { color: var(--dark); }
+.btn.outline .bg { background: transparent; border-color: var(--d48); }
+
+/* Square arrow tiles */
+.sq { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex: none; }
+.sq svg { transition: transform .4s ease; }
+.icon-tile { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex: none; background: var(--accent); border: 1px solid var(--d8); color: var(--on-accent); }
+.icon-tile svg { width: 24px; height: 24px; }
+
+/* Placeholder marker: anything BAUDRAUF still has to confirm */
+.ph { display: inline-block; padding: 2px 6px; border: 1px dashed currentColor; font-size: 11px; line-height: 14px; letter-spacing: .5px; font-weight: 500; opacity: .85; }
+
+/* ===== Navigation ===== */
+.banner { width: 100%; padding: 4px; background: var(--dark); color: var(--l64); text-align: center; }
+.nav-wrap { position: absolute; inset: 0 0 auto; z-index: 999; }
+.nav-wrap.fixed { position: fixed; transform: translateY(-100px); visibility: hidden; transition: transform .6s cubic-bezier(.22,1,.36,1), visibility 0s .6s; }
+.nav-wrap.fixed.show { transform: none; visibility: visible; transition: transform .6s cubic-bezier(.22,1,.36,1); }
+.navbar { position: relative; min-height: 64px; display: flex; }
+.nav-wrap.fixed .navbar { background: var(--light); }
+.nav-in { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 24px; display: flex; align-items: stretch; justify-content: space-between; }
+.nav-side { display: flex; align-items: stretch; }
+.nav-div { width: 1px; background: var(--l8); }
+.nav-wrap.fixed .nav-div { background: var(--d8); }
+.nav-link { display: flex; align-items: center; gap: 6px; padding: 0 16px; font-size: 14px; line-height: 16px; font-weight: 600; color: var(--light); transition: background-color .45s, color .45s; }
+.nav-wrap.fixed .nav-link { color: var(--dark); }
+.nav-link:hover, .dd:hover > .nav-link { background: var(--accent); color: var(--on-accent) !important; }
+.nav-link.nav-cta { background: var(--accent); color: var(--on-accent); }
+.nav-link.nav-cta:hover { background: var(--accent-hover); }
+.nav-link svg { width: 10px; height: 10px; }
+.brand { position: absolute; left: 50%; top: 0; bottom: 0; transform: translateX(-50%); display: flex; align-items: center; }
+.brand img { height: 44px; width: auto; }
+.brand .logo-dark { display: none; }
+.nav-wrap.fixed .brand .logo-light { display: none; }
+.nav-wrap.fixed .brand .logo-dark { display: block; }
+.nav-line { position: absolute; inset: auto 0 0; height: 1px; background: var(--l8); pointer-events: none; }
+.nav-wrap.fixed .nav-line { background: var(--d8); }
+
+.dd { position: static; display: flex; }
+.dd-panel { position: fixed; left: 0; right: 0; top: 84px; padding: 0 24px; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .2s, visibility 0s .2s; }
+.nav-wrap.fixed .dd-panel { top: 84px; }
+.dd:hover .dd-panel { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .2s .3s, visibility 0s .3s; }
+.dd-inner { max-width: var(--container); margin: 0 auto; background: var(--light); color: var(--dark); display: grid; grid-template-columns: 1fr 2fr; }
+.dd-list { padding: 32px; display: flex; flex-direction: column; gap: 24px; border-right: 1px solid var(--d8); }
+.dd-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+.dd-links a { color: var(--d64); transition: opacity .25s ease; }
+.dd-links a:hover { opacity: .48; }
+.dd-cases { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px; }
+.nav-case { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--sand); padding: 16px; min-height: 240px; }
+.nav-case .imgw { position: relative; overflow: hidden; }
+.nav-case .imgw img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease-circ); }
+.nav-case:hover .imgw img { transform: scale(1.1); }
+.nav-case .meta { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
+.dd-blur { position: fixed; inset: 0; z-index: -1; background: var(--d32); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity .2s, visibility 0s .2s; pointer-events: none; }
+.nav-wrap:has(.dd:hover) .dd-blur { opacity: 1; visibility: visible; transition: opacity .2s .3s, visibility 0s .3s; }
+
+.card-tag { position: relative; z-index: 1; display: inline-block; padding: 8px 12px; background: var(--d32); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); color: var(--light); }
+
+.menu-btn { display: none; width: 40px; height: 40px; border: 1px solid var(--d16); background: var(--light); align-items: center; justify-content: center; align-self: center; }
+.mobile-menu { position: fixed; inset: 0; z-index: 1000; background: var(--light); color: var(--dark); padding: 96px 16px 32px; display: flex; flex-direction: column; gap: 4px; overflow: auto; transform: translateY(-100%); transition: transform .4s ease; }
+.mobile-menu.open { transform: none; }
+.mobile-menu a.m-link { padding: 14px 0; border-bottom: 1px solid var(--d8); font-size: 28px; line-height: 32px; letter-spacing: -1px; font-weight: 500; }
+.mobile-menu .m-top { position: absolute; top: 0; left: 0; right: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--d8); }
+.mobile-menu .m-top img { height: 36px; }
+
+/* ===== 1. Hero ===== */
+.hero { position: relative; min-height: 100vh; padding: 160px 0 64px; color: var(--light); display: flex; overflow: hidden; }
+.hero-media { position: absolute; inset: 0; z-index: 0; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; animation: slowzoom 24s ease-in-out infinite alternate; transform-origin: 60% 50%; }
+@keyframes slowzoom { from { transform: scale(1); } to { transform: scale(1.09); } }
+.hero-grad { position: absolute; inset: 0 0 auto; height: 50%; z-index: 1; background: linear-gradient(180deg, var(--d64), transparent); }
+.hero-shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, color-mix(in srgb, var(--dark) 40%, transparent), transparent 55%); }
+.hero .container { z-index: 3; }
+.hero-content { max-width: 760px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+.hero-text { max-width: 564px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.tiles { position: absolute; inset: 0; z-index: 2; display: grid; grid-template-columns: repeat(4, 1fr); padding: 0 24px; pointer-events: none; background: var(--d8); }
+.tiles > div { display: flex; align-items: flex-end; }
+.tiles > div > i { display: block; width: 100%; background: var(--light); flex: none; }
+.tiles .t1 { height: 0%; } .tiles .t2 { height: 10%; } .tiles .t3 { height: 25%; } .tiles .t4 { height: 35%; width: 130% !important; }
+
+/* Sky texture stand-in: soft light clouds, lighten blend */
+.sky { position: absolute; inset: 0; z-index: 0; mix-blend-mode: lighten; pointer-events: none; background:
+  radial-gradient(40% 30% at 18% 22%, #ffffff 0%, transparent 70%),
+  radial-gradient(35% 25% at 70% 60%, #ffffff 0%, transparent 70%),
+  radial-gradient(30% 20% at 40% 85%, #ffffff 0%, transparent 70%); opacity: .55; }
+
+/* ===== 2. About + marquees ===== */
+.about { padding-top: 0; padding-bottom: 0; }
+.about .container { padding-top: 120px; }
+.about-statement { max-width: calc(50% - 8px); }
+.logos { margin-top: 80px; max-width: calc(50% - 8px); display: flex; flex-direction: column; gap: 0; }
+.marquee { position: relative; overflow: hidden; display: flex; }
+.marquee .grp { display: flex; flex: none; align-items: center; animation: mq 20s linear infinite; }
+.logos .marquee { padding: 24px 0; }
+.logos .grp { gap: 56px; padding-right: 56px; }
+.logos .grp img { height: 52px; width: auto; filter: grayscale(1) contrast(1.15); mix-blend-mode: multiply; opacity: .9; }
+.logos .fade { position: absolute; top: 0; bottom: 0; width: 80px; z-index: 1; }
+.logos .fade.l { left: 0; background: linear-gradient(90deg, var(--light), transparent); }
+.logos .fade.r { right: 0; background: linear-gradient(90deg, transparent, var(--light)); }
+.logos .marquee { filter: blur(8px); opacity: 0; transition: filter .5s var(--ease-circ) .4s, opacity .5s .4s; }
+.logos.in .marquee { filter: none; opacity: 1; }
+@keyframes mq { to { transform: translateX(-100%); } }
+.img-marquee { margin-top: 80px; }
+.img-marquee .grp { gap: 16px; padding-right: 16px; }
+.img-marquee figure { margin: 0; width: 450px; height: 450px; overflow: hidden; flex: none; }
+.img-marquee figure.lg { width: 680px; }
+.img-marquee img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ===== 3. Projects (sticky stack) ===== */
+.projects { padding-top: 160px; padding-bottom: 120px; }
+.proj-head { position: sticky; top: 100px; z-index: 1; display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; margin-bottom: 120px; }
+.proj-list { position: relative; }
+.proj-row { position: sticky; top: 240px; z-index: 2; }
+.proj-card { position: relative; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; padding: 32px 0; background: var(--light); }
+.proj-card::before, .proj-list::after { content: ""; position: absolute; left: 50%; width: 100vw; height: 1px; transform: translateX(-50%); background: var(--d8); }
+.proj-card::before { top: 0; }
+.proj-list::after { bottom: 0; }
+.proj-main { display: flex; flex-direction: column; justify-content: space-between; gap: 64px; padding-right: 32px; }
+.proj-main .txt { display: flex; flex-direction: column; gap: 24px; }
+.proj-info { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: start; }
+.proj-info > div { display: flex; flex-direction: column; gap: 8px; }
+.proj-img { position: relative; height: 416px; overflow: hidden; }
+.proj-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease-circ); }
+.proj-card:hover .proj-img img { transform: scale(1.1); }
+.link-card { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: 0; }
+.link-card .at { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--accent); color: var(--on-accent); border: 1px solid var(--d8); transition: background-color .3s ease; }
+.link-card .at svg { width: 16px; height: 16px; transition: transform .5s ease; }
+.proj-card:hover .link-card .at, .lcase:hover .link-card .at { background: var(--accent-hover); }
+.proj-card:hover .link-card .at svg, .lcase:hover .link-card .at svg { transform: rotate(-45deg); }
+
+/* ===== 4. Services (dark) ===== */
+.services { position: relative; z-index: 2; background: var(--dark); color: var(--light); padding: 80px 0; }
+.services .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: end; }
+.svc-left { height: 100%; padding-right: 48px; display: flex; align-items: flex-end; }
+.svc-media { position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: 892px; overflow: hidden; }
+.svc-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .2s ease; }
+.svc-media img.on { opacity: 1; transition: opacity .3s ease; }
+.svc-right { display: flex; flex-direction: column; gap: 48px; align-items: flex-start; }
+.svc-list { width: 100%; border-top: 1px solid var(--l8); }
+.svc { display: block; padding: 16px 0; border-bottom: 1px solid var(--l8); color: var(--light); }
+.svc-top { display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+.svc-ic { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--l32); background: var(--l32); color: var(--light); transition: all .45s var(--ease-circ); flex: none; }
+.svc-ic svg { width: 20px; height: 20px; transition: transform .45s var(--ease-circ); }
+.svc-bottom { max-width: 448px; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease-circ); }
+.svc-bottom > div { overflow: hidden; }
+.svc-bottom p { padding-top: 16px; color: var(--l88); }
+.svc:hover .svc-bottom, .svc:focus-visible .svc-bottom { grid-template-rows: 1fr; }
+.svc:hover .svc-ic { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.svc:hover .svc-ic svg { transform: rotate(-45deg); }
+
+/* ===== 5. Process slider ===== */
+.process .head { display: flex; flex-direction: column; gap: 24px; margin-bottom: 64px; }
+.process .head h2 { max-width: 680px; }
+.slider { position: relative; }
+.sl-mask { width: 564px; overflow: visible; }
+.sl-track { display: flex; transition: transform .5s ease; }
+.sl-slide { flex: none; width: 100%; margin-right: 16px; }
+.feature { height: 416px; padding: 24px; background: var(--sand); display: flex; flex-direction: column; justify-content: space-between; gap: 64px; }
+.feature .top { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+.feature .num { color: var(--d48); }
+.feature p { max-width: 452px; color: var(--d88); }
+.sl-btn { position: absolute; top: -112px; right: 0; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--d48); background: var(--light); color: var(--dark); transition: background-color .35s, color .35s, transform .45s, border-color .35s; }
+.sl-btn.prev { right: 56px; }
+.sl-btn:hover { background: var(--accent); border-color: var(--d16); color: var(--on-accent); }
+.sl-btn:active { transform: scale(.9); }
+.sl-btn svg { width: 16px; height: 16px; transition: transform .4s ease; }
+.sl-btn:hover svg { transform: rotate(-45deg); }
+.sl-btn.prev:hover svg { transform: rotate(45deg); }
+.process { overflow: clip; }
+
+/* ===== 6. Company column ===== */
+.company .grid { display: grid; grid-template-columns: 1fr .8fr; gap: 80px; align-items: stretch; }
+.col-img { position: relative; height: 680px; overflow: hidden; }
+.col-img img { width: 100%; height: 100%; object-fit: cover; }
+.col-img .tiles { padding: 0; background: none; grid-template-columns: repeat(4, 1fr); }
+.col-img .tiles .c4 { height: 35%; } .col-img .tiles .c3 { height: 25%; } .col-img .tiles .c2 { height: 10%; } .col-img .tiles .c1 { height: 0; }
+.col-content { max-width: 500px; display: flex; flex-direction: column; justify-content: space-between; gap: 64px; }
+.col-head { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+.features { display: flex; flex-direction: column; gap: 16px; }
+.feat { display: flex; align-items: center; gap: 24px; }
+.feat > div:last-child { display: flex; flex-direction: column; gap: 4px; }
+
+/* ===== 7. Customer voices (large slider) ===== */
+.voices { position: relative; z-index: 2; padding: 120px 0; color: var(--light); overflow: clip; }
+.voices .bgs { position: absolute; inset: 0; z-index: 0; }
+.voices .bgs img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .3s ease; }
+.voices .bgs img.on { opacity: 1; }
+.voices .veil { position: absolute; inset: 0; z-index: 1; background: var(--d48); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.lhead { position: relative; display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; margin-bottom: 64px; }
+.lhead .left { max-width: 679px; display: flex; flex-direction: column; gap: 24px; }
+.lhead .right { display: flex; gap: 8px; }
+.lhead .right .sl-btn { position: static; border-color: var(--l32); background: var(--d32); color: var(--light); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.lhead .right .sl-btn:hover { background: var(--accent); color: var(--on-accent); border-color: var(--d16); }
+.l-mask { width: 80%; overflow: visible; }
+.l-track { display: flex; transition: transform .6s var(--ease-inout-circ); }
+.l-slide { flex: none; width: 100%; margin-right: 16px; }
+.lcase { display: flex; gap: 48px; padding: 24px; background: var(--light); color: var(--dark); }
+.lcase .limg { position: relative; width: 100%; max-width: 424px; height: 552px; overflow: hidden; flex: none; }
+.lcase .limg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease-circ); }
+.lcase:hover .limg img { transform: scale(1.1); }
+.lcase .limg .tagw { position: absolute; inset: 0; z-index: 1; padding: 16px; }
+.lcase .limg .play { position: absolute; z-index: 1; left: 50%; top: 50%; width: 64px; height: 64px; transform: translate(-50%, -50%); background: var(--d32); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--l32); display: flex; align-items: center; justify-content: center; color: var(--light); }
+.lcase .rt { padding: 16px 0; display: flex; flex-direction: column; justify-content: space-between; gap: 64px; }
+.lcase .rt .top { display: flex; flex-direction: column; gap: 16px; }
+
+/* ===== 8. Contact ===== */
+.contact { position: relative; z-index: 2; background: var(--sand); padding: 120px 0; }
+.contact .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.c-left { max-width: 448px; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
+.c-top { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+.c-direct { display: flex; flex-direction: column; gap: 4px; }
+.c-direct a { font-weight: 600; letter-spacing: 0; }
+.testi { max-width: 332px; padding: 16px; background: var(--charcoal); color: var(--light); display: flex; flex-direction: column; gap: 24px; box-shadow: inset 0 1px 0 0 var(--d4), inset 0 -1px 0 0 var(--d8); }
+.stars { display: flex; gap: 4px; align-items: center; color: var(--light); }
+.stars svg { width: 16px; height: 16px; }
+.stars .score { margin-left: 8px; font-weight: 600; }
+.form-card { background: var(--light); padding: 48px; display: flex; flex-direction: column; gap: 48px; }
+.form-inner { display: flex; flex-direction: column; gap: 24px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.halves { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.input { width: 100%; padding: 12px 16px; border: 1px solid transparent; border-radius: 0; background: var(--sand); color: var(--dark); font: inherit; font-size: 16px; line-height: 24px; letter-spacing: .25px; outline: none; appearance: none; -webkit-appearance: none; }
+.input:focus { border-color: var(--dark); }
+.input::placeholder { color: var(--d48); }
+select.input { color: var(--d48); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%23171615' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+select.input.chosen { color: var(--dark); }
+textarea.input { min-height: 168px; resize: vertical; }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.check input { appearance: none; -webkit-appearance: none; width: 24px; height: 24px; margin: 0; border: 1px solid var(--d16); flex: none; display: grid; place-items: center; cursor: pointer; }
+.check input:checked { background: var(--accent); border-color: var(--accent); }
+.check input:checked::after { content: ""; width: 10px; height: 6px; border-left: 2px solid var(--on-accent); border-bottom: 2px solid var(--on-accent); transform: rotate(-45deg) translate(1px, -1px); }
+.form-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+.form-state { display: none; padding: 24px; border: 1px solid var(--d16); background: var(--sand); }
+.form-state .h6 { margin-bottom: 8px; }
+form.sent .form-inner, form.sent .form-bottom { display: none; }
+form.sent .form-state { display: block; }
+.field.err .input { border-color: #c9372d; }
+.err-msg { display: none; color: #c9372d; font-size: 12px; line-height: 16px; }
+.field.err .err-msg { display: block; }
+
+/* ===== 9. CTA band ===== */
+.cta { position: relative; z-index: 2; padding: 228px 0; color: var(--light); overflow: hidden; }
+.cta > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.cta .ov-l { position: absolute; inset: 0 auto 0 0; width: 50%; z-index: 1; background: linear-gradient(90deg, var(--charcoal), transparent); }
+.cta .ov-b { position: absolute; inset: auto 0 0; height: 50%; z-index: 1; background: linear-gradient(0deg, var(--charcoal), transparent); }
+.cta .content { max-width: 640px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+
+/* ===== 10. Footer ===== */
+.footer { position: relative; z-index: 2; background: var(--charcoal); color: var(--light); padding: 48px 0 32px; }
+.f-content { display: flex; flex-direction: column; gap: 80px; }
+.f-halves { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.f-left { display: flex; flex-direction: column; gap: 32px; max-width: 448px; }
+.f-left img { width: 120px; height: auto; }
+.f-left .t { display: flex; flex-direction: column; gap: 16px; color: var(--l88); }
+.f-right { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.f-col { display: flex; flex-direction: column; gap: 20px; }
+.f-col .hd { display: flex; justify-content: space-between; align-items: center; color: var(--l88); }
+.f-col .hd .plus { display: none; position: relative; width: 12px; height: 12px; }
+.f-col .hd .plus::before, .f-col .hd .plus::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: var(--light); transform: translateY(-50%); }
+.f-col .hd .plus::after { transform: translateY(-50%) rotate(90deg); transition: transform .3s ease; }
+.f-col.open .hd .plus::after { transform: translateY(-50%) rotate(0deg); }
+.f-col .links { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .4s var(--ease-circ); }
+.f-col .links > div { overflow: hidden; display: flex; flex-direction: column; gap: 8px; }
+.f-link { color: var(--light); transition: opacity .2s; }
+.f-link:hover { opacity: .5; }
+.f-rule { height: 1px; background: var(--l8); }
+.f-bottom { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; color: var(--l64); }
+.f-bottom .legal { display: flex; gap: 8px; flex-wrap: wrap; }
+.f-social { display: flex; gap: 12px; }
+.f-social a { width: 20px; height: 20px; color: var(--l64); transition: color .2s; }
+.f-social a:hover { color: var(--light); }
+
+/* ===== Modal (Projekt anfragen) + video ===== */
+.modal { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; padding: 24px; background: var(--d48); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.modal.open { display: flex; }
+.modal .box { width: 100%; max-width: 1080px; max-height: calc(100vh - 48px); overflow: auto; background: var(--light); display: grid; grid-template-columns: 1fr 1.2fr; opacity: 0; transform: translateY(40px); transition: opacity .3s var(--ease-inout-circ), transform .3s var(--ease-inout-circ); }
+.modal.show .box { opacity: 1; transform: none; }
+.modal .m-left { position: relative; min-height: 520px; display: flex; align-items: flex-end; padding: 24px; color: var(--light); }
+.modal .m-left img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.modal .m-left::after { content: ""; position: absolute; inset: 50% 0 0; background: linear-gradient(0deg, var(--d64), transparent); }
+.modal .m-left .who { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 4px; }
+.modal .m-right { padding: 32px; display: flex; flex-direction: column; gap: 32px; }
+.modal .m-head { display: flex; justify-content: space-between; align-items: center; }
+.modal .close { width: 40px; height: 40px; border: 1px solid var(--d16); display: flex; align-items: center; justify-content: center; }
+.modal textarea.input { min-height: 104px; }
+.vmodal .box { max-width: 420px; grid-template-columns: 1fr; background: var(--dark); }
+.vmodal video { width: 100%; max-height: calc(100vh - 120px); background: #000; display: block; }
+.vmodal .vbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; color: var(--light); }
+.vmodal .close { border-color: var(--l32); color: var(--light); }
+
+/* ===== Responsive (template breakpoints 991 / 767 / 479) ===== */
+@media (max-width: 991px) {
+  .h0 { font-size: 72px; line-height: 64px; letter-spacing: -3px; }
+  .h1 { font-size: 64px; line-height: 58px; letter-spacing: -2.5px; }
+  .h2 { font-size: 48px; line-height: 44px; letter-spacing: -1.5px; }
+  .h3 { font-size: 40px; line-height: 38px; letter-spacing: -1.5px; }
+  .nav-side.left, .nav-side.right .nav-link:not(.nav-cta), .nav-side.right .nav-div { display: none; }
+  .brand { position: static; transform: none; }
+  .menu-btn { display: flex; }
+  .nav-in { padding: 8px 16px; align-items: center; }
+  .nav-side.right .nav-link.nav-cta { display: none; }
+  .about-statement, .logos { max-width: none; }
+  .proj-head { position: static; flex-wrap: wrap; margin-bottom: 64px; }
+  .proj-row { position: relative; top: auto; }
+  .proj-card { grid-template-columns: 1fr; gap: 24px; }
+  .proj-main { padding-right: 0; gap: 24px; }
+  .proj-img { height: 362px; order: -1; }
+  .services .grid { grid-template-columns: 1fr; gap: 48px; }
+  .svc-left { padding-right: 0; }
+  .svc-media { aspect-ratio: 16 / 10; }
+  .company .grid { grid-template-columns: 1fr; gap: 48px; }
+  .col-img { height: 362px; }
+  .col-content { max-width: none; }
+  .lhead { flex-direction: column; align-items: flex-start; }
+  .l-mask { width: 100%; }
+  .lcase .limg { height: 450px; }
+  .contact .grid { grid-template-columns: 1fr; gap: 48px; }
+  .c-left { max-width: none; }
+  .f-halves { grid-template-columns: 1fr; }
+  .modal .box { grid-template-columns: 1fr; }
+  .modal .m-left { min-height: 220px; }
+  .sl-mask { width: 460px; }
+}
+@media (max-width: 767px) {
+  :root { --pad: 16px; }
+  .h0 { font-size: 56px; line-height: 52px; letter-spacing: -2px; }
+  .h1 { font-size: 48px; line-height: 46px; letter-spacing: -2px; }
+  .h2 { font-size: 40px; line-height: 38px; letter-spacing: -1.5px; }
+  .h3 { font-size: 32px; line-height: 32px; letter-spacing: -1px; }
+  .h5 { font-size: 26px; line-height: 28px; }
+  .body-1 { font-size: 18px; line-height: 26px; }
+  .bg-grid { padding: 0 8px; }
+  .hero { padding-top: 140px; }
+  .tiles { grid-template-columns: repeat(3, 1fr); background: var(--d32); }
+  .tiles .hide-m { display: none !important; }
+  .tiles .t4 { height: 25%; } .tiles .t3 { height: 15%; }
+  .about .container { padding-top: 80px; }
+  .img-marquee figure { width: 260px; height: 260px; }
+  .img-marquee figure.lg { width: 360px; }
+  .projects { padding-top: 96px; }
+  .sl-mask { width: 320px; }
+  .feature { height: 300px; }
+  .sl-btn { top: auto; bottom: -64px; }
+  .process { padding-bottom: 144px; }
+  .lcase { flex-direction: column; gap: 24px; padding: 16px; }
+  .lcase .limg { max-width: none; height: 380px; }
+  .lcase .rt { gap: 24px; padding: 0; }
+  .form-card { padding: 24px; }
+  .halves { grid-template-columns: 1fr; }
+  .form-bottom { flex-direction: column-reverse; align-items: flex-start; }
+  .cta { padding: 120px 0; }
+  .f-right { grid-template-columns: 1fr; gap: 0; }
+  .f-col { gap: 0; padding: 16px 0; border-bottom: 1px solid var(--l8); }
+  .f-col .hd { cursor: pointer; }
+  .f-col .hd .plus { display: block; }
+  .f-col .links { grid-template-rows: 0fr; }
+  .f-col .links > div { padding-top: 0; }
+  .f-col.open .links { grid-template-rows: 1fr; }
+  .f-col.open .links > div { padding-top: 16px; }
+  .svc-ic { width: 40px; height: 40px; }
+  .banner { padding: 4px 8px; }
+  .banner .hide-s { display: none; }
+}
+@media (max-width: 479px) {
+  .h1 { font-size: 42px; line-height: 40px; letter-spacing: -1.5px; }
+  .sl-mask { width: 270px; }
+  .proj-info { grid-template-columns: 1fr 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .hero-media img { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="arr" viewBox="0 0 16 16"><path d="M3.33 8h9.34M8 3.33 12.67 8 8 12.67" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
+    <symbol id="arr-l" viewBox="0 0 16 16"><path d="M12.67 8H3.33M8 12.67 3.33 8 8 3.33" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
+    <symbol id="chev" viewBox="0 0 10 10"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+    <symbol id="star" viewBox="0 0 16 16"><path d="M8 1.5l1.9 4 4.4.5-3.3 3 .9 4.4L8 11.2 4.1 13.4l.9-4.4-3.3-3 4.4-.5z" fill="currentColor"/></symbol>
+    <symbol id="play" viewBox="0 0 16 16"><path d="M5 3.5v9l7.5-4.5z" fill="currentColor"/></symbol>
+    <symbol id="close" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" stroke="currentColor" stroke-width="1.5"/></symbol>
+  </defs>
+</svg>
+
+<div class="bg-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+
+<!-- ===== Navigation (static over hero) ===== -->
+<header class="nav-wrap" id="navStatic">
+  <div class="banner label-2">Wien und Niederösterreich <span class="hide-s">· Mo bis Fr 08:00 bis 19:00, Sa 08:00 bis 14:00</span> · <a href="tel:+4319974162">+43 1 997 41 62</a></div>
+  <div class="navbar">
+    <div class="nav-in">
+      <nav class="nav-side left" aria-label="Hauptnavigation">
+        <span class="nav-div"></span>
+        <div class="dd">
+          <a class="nav-link" href="#leistungen">Bau &amp; Sanierung <svg><use href="#chev"/></svg></a>
+          <div class="dd-panel">
+            <div class="dd-inner">
+              <div class="dd-list">
+                <div class="semibold">Bau &amp; Sanierung</div>
+                <div class="dd-links">
+                  <a href="#">Neubau</a><a href="#">Altbausanierung</a><a href="#">Wohnungsrenovierung</a><a href="#">Dachgeschossausbau</a><a href="#">Badsanierung</a><a href="#">Fassade &amp; Wärmedämmung</a><a href="#">Schadensanierung</a><a href="#">Garten &amp; Terrasse</a><a href="#">Küche</a><a href="#">Alle Gewerke</a>
+                </div>
+                <a class="btn outline" href="#leistungen"><span class="mask"><span class="lbl">Alle Leistungen</span></span><span class="bg"></span></a>
+              </div>
+              <div class="dd-cases">
+                <a class="nav-case" href="https://baudrauf.at/referenzen/sierningstrasse">
+                  <div class="meta"><div><span class="card-tag label-2">Neubau</span></div><div><div class="label-2">Niederösterreich</div><div class="h6" style="margin-top:8px">Villa Sierningstraße</div></div></div>
+                  <div class="imgw"><img src="images/projekte/sierningstrasse-villa-noe.jpg" alt="Neubau Villa Sierningstraße mit Pool, Niederösterreich" loading="lazy"></div>
+                </a>
+                <a class="nav-case" href="https://baudrauf.at/referenzen/perinetgasse">
+                  <div class="meta"><div><span class="card-tag label-2">Dachgeschoß</span></div><div><div class="label-2">1200 Wien</div><div class="h6" style="margin-top:8px">Perinetgasse</div></div></div>
+                  <div class="imgw"><img src="images/projekte/perinetgasse-dg-1200-wien.jpg" alt="Dachgeschoßausbau mit Glasfront, Perinetgasse 1200 Wien" loading="lazy"></div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="nav-div"></span>
+        <div class="dd">
+          <a class="nav-link" href="#leistungen">Gebäudetechnik <svg><use href="#chev"/></svg></a>
+          <div class="dd-panel">
+            <div class="dd-inner">
+              <div class="dd-list">
+                <div class="semibold">Gebäudetechnik</div>
+                <div class="dd-links">
+                  <a href="#">Wärmepumpe</a><a href="#">Photovoltaik</a><a href="#">Heizung &amp; Gastherme</a><a href="#">Sanitär</a><a href="#">Klimaanlage</a><a href="#">Solarthermie</a><a href="#">Energieberatung</a><a href="#">Sanierung + Heizung</a>
+                </div>
+                <a class="btn outline" href="#leistungen"><span class="mask"><span class="lbl">Alle Leistungen</span></span><span class="bg"></span></a>
+              </div>
+              <div class="dd-cases">
+                <a class="nav-case" href="https://baudrauf.at/referenzen/lwp-in-1220-wien-umstieg-von-gastherme-auf-2-x-luftwaermepumpen-in-kaskade">
+                  <div class="meta"><div><span class="card-tag label-2">Gewerbe</span></div><div><div class="label-2">1220 Wien</div><div class="h6" style="margin-top:8px">Rautenweg</div></div></div>
+                  <div class="imgw"><img src="images/projekte/rautenweg-lwp-kaskade-1220-wien.webp" alt="Zwei Bosch Luftwärmepumpen in Kaskade am Dach, Rautenweg 1220 Wien" loading="lazy"></div>
+                </a>
+                <a class="nav-case" href="https://baudrauf.at/referenzen/willergasse">
+                  <div class="meta"><div><span class="card-tag label-2">Einfamilienhaus</span></div><div><div class="label-2">1230 Wien</div><div class="h6" style="margin-top:8px">Willergasse</div></div></div>
+                  <div class="imgw"><img src="images/bosch-waermepumpe-nacht-willergasse-1230.webp" alt="Bosch Wärmepumpe bei Nacht, Willergasse 1230 Wien" loading="lazy"></div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="nav-div"></span>
+        <a class="nav-link" href="#projekte">Projekte</a>
+        <span class="nav-div"></span>
+        <a class="nav-link" href="#">Kosten &amp; Förderung</a>
+        <span class="nav-div"></span>
+      </nav>
+      <a class="brand" href="#top" aria-label="BAUDRAUF Startseite">
+        <img class="logo-light" src="../brand/baudrauf-logo-white-471x300.png" alt="BAUDRAUF" width="69" height="44">
+        <img class="logo-dark" src="../brand/baudrauf-logo-color-471x300.png" alt="BAUDRAUF" width="69" height="44">
+      </a>
+      <div class="nav-side right">
+        <span class="nav-div"></span>
+        <a class="nav-link" href="#kontakt">Kontakt</a>
+        <a class="nav-link nav-cta" href="#" data-open-modal>Projekt anfragen</a>
+        <button class="menu-btn" type="button" aria-label="Menü öffnen" data-menu><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 5h12M2 11h12" stroke="#171615" stroke-width="1.5"/></svg></button>
+      </div>
+    </div>
+    <div class="nav-line"></div>
+  </div>
+  <div class="dd-blur"></div>
+</header>
+
+<!-- Fixed nav: cloned from the static one by script, slides in after scroll -->
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="m-top"><img src="../brand/baudrauf-logo-color-471x300.png" alt="BAUDRAUF"><button class="menu-btn" style="display:flex" type="button" aria-label="Menü schließen" data-menu><svg width="16" height="16"><use href="#close"/></svg></button></div>
+  <a class="m-link" href="#leistungen" data-menu-link>Bau &amp; Sanierung</a>
+  <a class="m-link" href="#leistungen" data-menu-link>Gebäudetechnik</a>
+  <a class="m-link" href="#projekte" data-menu-link>Projekte</a>
+  <a class="m-link" href="#" data-menu-link>Kosten &amp; Förderung</a>
+  <a class="m-link" href="#ueber-uns" data-menu-link>Über uns</a>
+  <a class="m-link" href="#kontakt" data-menu-link>Kontakt</a>
+  <div style="margin-top:24px;display:flex;gap:8px;flex-wrap:wrap">
+    <a class="btn accent" href="#" data-open-modal><span class="mask"><span class="lbl">Projekt anfragen</span></span><span class="ico"><svg><use href="#arr"/></svg></span><span class="bg"></span></a>
+    <a class="btn outline" href="tel:+4319974162"><span class="mask"><span class="lbl">+43 1 997 41 62</span></span><span class="bg"></span></a>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ===== 1. Hero ===== -->
+<section class="hero" aria-label="Einleitung">
+  <div class="hero-media"><img src="images/villa-pool-daemmerung-sierningstrasse.webp" alt="Neubau Villa Sierningstraße mit beleuchtetem Pool in der Dämmerung, Niederösterreich" fetchpriority="high"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-shade"></div>
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="h1">Bau und Haustechnik.<br>Aus einer Hand.</h1>
+      <div class="hero-text">
+        <p>Generalunternehmen für Neubau, Sanierung und Gebäudetechnik in Wien und Niederösterreich. Seit 2015.</p>
+        <div class="btn-row">
+          <a class="btn accent" href="#" data-open-modal><span class="mask"><span class="lbl">Projekt anfragen</span></span><span class="ico"><svg><use href="#arr"/></svg></span><span class="bg"></span></a>
+          <a class="btn glass" href="#projekte"><span class="mask"><span class="lbl">Referenzen ansehen</span></span><span class="bg"></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tiles" aria-hidden="true">
+    <div><i class="t1"></i></div>
+    <div class="hide-m"><i class="t2"></i></div>
+    <div><i class="t3"></i></div>
+    <div><i class="t4"></i></div>
+  </div>
+</section>
+
+<!-- ===== 2. About + logos + image marquee ===== -->
+<section class="section about" aria-label="Über BAUDRAUF">
+  <div class="sky"></div>
+  <div class="container">
+    <p class="h5 about-statement">BAUDRAUF plant und baut Neubauten, Sanierungen und Haustechnik in Wien und Niederösterreich. Bau und Installation liegen bei uns in einer Firma.</p>
+    <div class="logos" id="logos">
+      <div class="eyebrow label-2">Unsere Kunden</div>
+      <div class="marquee">
+        <div class="fade l"></div><div class="fade r"></div>
+        <div class="grp" data-logos></div>
+        <div class="grp" data-logos aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+  <div class="marquee img-marquee" aria-label="Baustellen und fertige Projekte">
+    <div class="grp" data-imgs></div>
+    <div class="grp" data-imgs aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ===== 3. Projects ===== -->
+<section class="section projects" id="projekte" aria-label="Projekte">
+  <div class="container">
+    <div class="proj-head">
+      <h2 class="h0 outlined">Projekte</h2>
+      <a class="btn lightbtn" href="https://baudrauf.at/referenzen"><span class="mask"><span class="lbl">Alle Referenzen</span></span><span class="bg"></span></a>
+    </div>
+    <div class="proj-list">
+      <div class="proj-row">
+        <a class="proj-card" href="https://baudrauf.at/referenzen/sierningstrasse">
+          <div class="proj-main">
+            <div class="txt">
+              <h3 class="h3">Villa Sierningstraße</h3>
+              <p class="t-d88">Neubau einer Villa als Generalunternehmer: großflächige Verglasung, ein fließender Übergang vom Garten ins Wohnzimmer und Haustechnik mit Bussteuerung. Rund 355 m² in 42 Wochen.</p>
+            </div>
+            <span class="link-card">Projekt ansehen <span class="at"><svg><use href="#arr"/></svg></span></span>
+          </div>
+          <div class="proj-info">
+            <div><span class="label-2">Ort</span><span>Niederösterreich</span></div>
+            <div><span class="label-2">Leistung</span><span>Neubau Villa</span></div>
+          </div>
+          <div class="proj-img"><img src="images/projekte/sierningstrasse-villa-noe.jpg" alt="Neubau Villa Sierningstraße mit Pool und Garten, Niederösterreich" loading="lazy"></div>
+        </a>
+      </div>
+      <div class="proj-row">
+        <a class="proj-card" href="https://baudrauf.at/referenzen/perinetgasse">
+          <div class="proj-main">
+            <div class="txt">
+              <h3 class="h3">Dachgeschoß Perinetgasse</h3>
+              <p class="t-d88">Umbau und Dämmung des Dachstuhls mit Trockenbau-Verkleidung und einer großen Glasfront mit Blick über den Donaukanal. Rund 114 m² in 3 Wochen.</p>
+            </div>
+            <span class="link-card">Projekt ansehen <span class="at"><svg><use href="#arr"/></svg></span></span>
+          </div>
+          <div class="proj-info">
+            <div><span class="label-2">Ort</span><span>1200 Wien</span></div>
+            <div><span class="label-2">Leistung</span><span>Dachgeschoß Umbau</span></div>
+          </div>
+          <div class="proj-img"><img src="images/projekte/perinetgasse-dg-1200-wien.jpg" alt="Ausgebautes Dachgeschoß mit Glasfront, Perinetgasse 1200 Wien" loading="lazy"></div>
+        </a>
+      </div>
+      <div class="proj-row">
+        <a class="proj-card" href="https://baudrauf.at/referenzen/lwp-in-1220-wien-umstieg-von-gastherme-auf-2-x-luftwaermepumpen-in-kaskade">
+          <div class="proj-main">
+            <div class="txt">
+              <h3 class="h3">Gewerbeobjekt Rautenweg</h3>
+              <p class="t-d88">Umstieg von der Gastherme auf zwei Bosch Luftwärmepumpen in Kaskade, für ein Gewerbeobjekt mit Lagerflächen. Rund 400 m² in 4 Tagen.</p>
+            </div>
+            <span class="link-card">Projekt ansehen <span class="at"><svg><use href="#arr"/></svg></span></span>
+          </div>
+          <div class="proj-info">
+            <div><span class="label-2">Ort</span><span>1220 Wien</span></div>
+            <div><span class="label-2">Leistung</span><span>Wärmepumpe in Kaskade</span></div>
+          </div>
+          <div class="proj-img"><img src="images/projekte/rautenweg-lwp-kaskade-1220-wien.webp" alt="Zwei Bosch Luftwärmepumpen am Flachdach, Rautenweg 1220 Wien" loading="lazy"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. Services ===== -->
+<section class="services" id="leistungen" aria-label="Leistungen">
+  <div class="container">
+    <div class="grid">
+      <div class="svc-left">
+        <div class="svc-media" id="svcMedia">
+          <img class="on" src="images/dachgaube-spenglerarbeiten.webp" alt="Neue Dachgaupe mit Spenglerarbeiten am eingerüsteten Haus" loading="lazy">
+          <img src="images/neubau-villa-wien-penzing.jpg" alt="Neubau Villa in Wien Penzing" loading="lazy">
+          <img src="images/altbau-eingang-nachher-trockenlegung.webp" alt="Sanierter Altbau-Eingang nach der Trockenlegung" loading="lazy">
+          <img src="images/dachgeschossausbau-glasfront.webp" alt="Dachgeschoßausbau mit großer Glasfront" loading="lazy">
+          <img src="images/fassadensanierung-gruenderzeithaus-wien.jpg" alt="Fassadensanierung an einem Gründerzeithaus in Wien" loading="lazy">
+          <img src="images/bosch-waermepumpe-nacht-willergasse-1230.webp" alt="Bosch Wärmepumpe bei Nacht, Willergasse 1230 Wien" loading="lazy">
+          <img src="images/gewerbe-gastrolokal-umbau.jpg" alt="Umgebautes Gastronomielokal" loading="lazy">
+        </div>
+      </div>
+      <div class="svc-right">
+        <div class="eyebrow stone label-2">Leistungen</div>
+        <div class="svc-list">
+          <a class="svc" href="#" data-img="1"><div class="svc-top"><h3 class="h3">Neubau</h3><span class="svc-ic"><svg><use href="#arr"/></svg></span></div><div class="svc-bottom"><div><p>Massivhäuser und Effizienzhäuser, schlüsselfertig geplant und gebaut.</p></div></div></a>
+          <a class="svc" href="#" data-img="2"><div class="svc-top"><h3 class="h3">Altbausanierung</h3><span class="svc-ic"><svg><use href="#arr"/></svg></span></div><div class="svc-bottom"><div><p>Altbauwohnungen, Zinshäuser und energetische Komplettsanierungen, mit eigener Gebäudetechnik.</p></div></div></a>
+          <a class="svc" href="#" data-img="3"><div class="svc-top"><h3 class="h3">Dachgeschossausbau</h3><span class="svc-ic"><svg><use href="#arr"/></svg></span></div><div class="svc-bottom"><div><p>Wohnraumerweiterung, Dämmung, Dachfenster und Innenausbau aus einer Hand.</p></div></div></a>
+          <a class="svc" href="#" data-img="4"><div class="svc-top"><h3 class="h3">Fassade &amp; Wärmedämmung</h3><span class="svc-ic"><svg><use href="#arr"/></svg></span></div><div class="svc-bottom"><div><p>Fassadensanierung und Wärmedämmung für Altbau und Neubau.</p></div></div></a>
+          <a class="svc" href="#" data-img="5"><div class="svc-top"><h3 class="h3">Wärmepumpe &amp; Heizung</h3><span class="svc-ic"><svg><use href="#arr"/></svg></span></div><div class="svc-bottom"><div><p>Beratung, Planung, Installation und Förderabwicklung für Ihre neue Heizung.</p></div></div></a>
+          <a class="svc" href="#" data-img="6"><div class="svc-top"><h3 class="h3">Gewerbe &amp; Gastro</h3><span class="svc-ic"><svg><use href="#arr"/></svg></span></div><div class="svc-bottom"><div><p>Umbau von Geschäftslokalen, Büros und Gastronomie, für Hausverwaltungen und Betriebe.</p></div></div></a>
+        </div>
+        <a class="btn accent" href="#" data-open-modal><span class="mask"><span class="lbl">Projekt anfragen</span></span><span class="ico"><svg><use href="#arr"/></svg></span><span class="bg"></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. Process slider ===== -->
+<section class="section process" aria-label="Ablauf">
+  <div class="container">
+    <div class="head">
+      <div class="eyebrow label-2">Ablauf</div>
+      <h2 class="h2">So läuft Ihr Projekt ab.</h2>
+    </div>
+    <div class="slider" data-slider>
+      <div class="sl-mask">
+        <div class="sl-track">
+          <div class="sl-slide"><div class="feature"><div class="top"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg></span><span class="label-2 num">Schritt 01</span><h3 class="h5">Kontakt aufnehmen</h3></div><p>Rufen Sie uns an, oder füllen Sie das Onlineformular aus.</p></div></div>
+          <div class="sl-slide"><div class="feature"><div class="top"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l9-7 9 7M5 10v10h14V10"/><circle cx="12" cy="14" r="2.5"/></svg></span><span class="label-2 num">Schritt 02</span><h3 class="h5">Kostenlose Besichtigung</h3></div><p>Wir besichtigen Ihr Objekt und klären die Gegebenheiten vor Ort.</p></div></div>
+          <div class="sl-slide"><div class="feature"><div class="top"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5"/></svg></span><span class="label-2 num">Schritt 03</span><h3 class="h5">Angebot und Förderabwicklung</h3></div><p>Sie erhalten ein transparentes Angebot. Wir kümmern uns um die Beantragung der Fördermittel.</p></div></div>
+          <div class="sl-slide"><div class="feature"><div class="top"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 6.5a4 4 0 0 0-5 5L4 17l3 3 5.5-5.5a4 4 0 0 0 5-5L15 12l-3-3z"/></svg></span><span class="label-2 num">Schritt 04</span><h3 class="h5">Montage</h3></div><p>Nach Erhalt der Förderzusage planen wir die Ausführung und setzen sie um.</p></div></div>
+          <div class="sl-slide"><div class="feature"><div class="top"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8.5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span><span class="label-2 num">Schritt 05</span><h3 class="h5">Abnahme und Qualitätssicherung</h3></div><p>Die Anlage wird durch den Hersteller abgenommen.</p></div></div>
+        </div>
+      </div>
+      <button class="sl-btn prev" type="button" aria-label="Vorheriger Schritt"><svg><use href="#arr-l"/></svg></button>
+      <button class="sl-btn next" type="button" aria-label="Nächster Schritt"><svg><use href="#arr"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. Company ===== -->
+<section class="section company" id="ueber-uns" aria-label="Über uns">
+  <div class="sky"></div>
+  <div class="container">
+    <div class="grid">
+      <div class="col-img">
+        <img src="images/altbau-eingang-vorher-trockenlegung.webp" alt="Altbau-Eingangshalle mit freigelegtem Ziegelmauerwerk während der Trockenlegung" loading="lazy">
+        <div class="tiles" aria-hidden="true"><div><i class="c4"></i></div><div><i class="c3"></i></div><div><i class="c2"></i></div><div><i class="c1"></i></div></div>
+      </div>
+      <div class="col-content">
+        <div class="col-head">
+          <div class="eyebrow label-2">Über uns</div>
+          <h2 class="h3">Bau und Installation, seit 2015.</h2>
+          <p class="t-d88">BAUDRAUF wurde 2015 in Wien gegründet und ist seit 2022 eine GmbH. Geschäftsführer ist Ing. Jasin Alili, BSc. Wir sind Mitglied der Wirtschaftskammer Wien, in den Fachgruppen Bau sowie Sanitär-, Heizungs- und Lüftungstechnik.</p>
+          <a class="btn glass-dark" href="#"><span class="mask"><span class="lbl">Über uns</span></span><span class="bg"></span></a>
+        </div>
+        <div class="features">
+          <div class="feat"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6"/></svg></span><div><div class="semibold">Zwei Gewerbe, eine Firma</div><div class="t-d64">Bau sowie Gas- und Sanitärtechnik unter einem Dach.</div></div></div>
+          <div class="feat"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><div class="semibold">Wien und Niederösterreich</div><div class="t-d64">Projekte von 1010 Wien bis Klosterneuburg und Vösendorf.</div></div></div>
+          <div class="feat"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 12l3 3 5-6"/><path d="M12 3l2.5 1.8 3 .2.9 2.9 2.1 2.1-.9 2.9.9 2.9-2.1 2.1-.9 2.9-3 .2L12 21l-2.5-1.8-3-.2-.9-2.9L3.5 14l.9-2.9-.9-2.9 2.1-2.1.9-2.9 3-.2z"/></svg></span><div><div class="semibold">Partner von Bosch und Viessmann</div><div class="t-d64">Kooperationen mit Bosch Home Comfort Österreich und Viessmann.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. Customer voices ===== -->
+<section class="voices" id="stimmen" aria-label="Kundenstimmen">
+  <div class="bgs">
+    <img class="on" src="images/videos/kundenvideo-manfred-a-floridsdorf.webp" alt="" aria-hidden="true">
+    <img src="images/videos/kundenvideo-ebe-solutions-donaustadt.webp" alt="" aria-hidden="true">
+    <img src="images/videos/kundenvideo-christiane-michael-meidling.webp" alt="" aria-hidden="true">
+  </div>
+  <div class="veil"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <div class="lhead">
+      <div class="left">
+        <div class="eyebrow stone label-2">Kundenstimmen</div>
+        <h2 class="h2">Das sagen unsere Kunden.</h2>
+        <p>Drei Projekte, erzählt von den Menschen, für die wir sie umgesetzt haben.</p>
+      </div>
+      <div class="right">
+        <a class="btn glass" href="https://baudrauf.at/referenzen"><span class="mask"><span class="lbl">Alle Referenzen</span></span><span class="bg"></span></a>
+        <button class="sl-btn prev" type="button" aria-label="Vorherige Kundenstimme" data-l-prev><svg><use href="#arr-l"/></svg></button>
+        <button class="sl-btn next" type="button" aria-label="Nächste Kundenstimme" data-l-next><svg><use href="#arr"/></svg></button>
+      </div>
+    </div>
+    <div class="l-mask">
+      <div class="l-track">
+        <div class="l-slide">
+          <div class="lcase" data-video="https://baudrauf.at/public/assets/videos/adam_kundenrezension_2.mp4" data-title="Manfred A., Wien Floridsdorf">
+            <div class="limg"><img src="images/videos/kundenvideo-manfred-a-floridsdorf.webp" alt="Manfred A. im Gespräch mit dem BAUDRAUF Team vor seinem Haus in Wien Floridsdorf" loading="lazy"><div class="tagw"><span class="card-tag label-2">Wärmepumpe, PV, Klima</span></div><span class="play"><svg width="20" height="20"><use href="#play"/></svg></span></div>
+            <div class="rt">
+              <div class="top"><span class="label-2">Wien Floridsdorf</span><h3 class="h5">Manfred A.</h3><p class="t-d88">Installation von Luftwärmepumpe, Photovoltaik und Klimaanlage in seinem Haus.</p></div>
+              <button class="link-card" type="button" data-play>Video ansehen <span class="at"><svg><use href="#play"/></svg></span></button>
+            </div>
+          </div>
+        </div>
+        <div class="l-slide">
+          <div class="lcase" data-video="https://baudrauf.at/public/assets/videos/ebe-solutions.mp4" data-title="Matthias S., EBE Solutions, Wien Donaustadt">
+            <div class="limg"><img src="images/videos/kundenvideo-ebe-solutions-donaustadt.webp" alt="Technikraum mit zwei Bosch Inneneinheiten bei EBE Solutions in Wien Donaustadt" loading="lazy"><div class="tagw"><span class="card-tag label-2">Gewerbe</span></div><span class="play"><svg width="20" height="20"><use href="#play"/></svg></span></div>
+            <div class="rt">
+              <div class="top"><span class="label-2">Wien Donaustadt</span><h3 class="h5">Matthias S., EBE Solutions</h3><p class="t-d88">Luftwärmepumpen in Kaskade am Dach für einen Gewerbebetrieb.</p></div>
+              <button class="link-card" type="button" data-play>Video ansehen <span class="at"><svg><use href="#play"/></svg></span></button>
+            </div>
+          </div>
+        </div>
+        <div class="l-slide">
+          <div class="lcase" data-video="https://baudrauf.at/public/assets/videos/fam_nussbaum.mp4" data-title="Christiane und Michael, Wien Meidling">
+            <div class="limg"><img src="images/videos/kundenvideo-christiane-michael-meidling.webp" alt="Christiane und Michael erzählen von ihrer Wohnungssanierung in Wien Meidling" loading="lazy"><div class="tagw"><span class="card-tag label-2">Wohnungssanierung</span></div><span class="play"><svg width="20" height="20"><use href="#play"/></svg></span></div>
+            <div class="rt">
+              <div class="top"><span class="label-2">Wien Meidling</span><h3 class="h5">Christiane und Michael</h3><p class="t-d88">Schlüsselfertige Sanierung ihrer Wohnung.</p></div>
+              <button class="link-card" type="button" data-play>Video ansehen <span class="at"><svg><use href="#play"/></svg></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. Contact ===== -->
+<section class="contact" id="kontakt" aria-label="Kontakt">
+  <div class="container">
+    <div class="grid">
+      <div class="c-left">
+        <div class="c-top">
+          <div class="eyebrow label-2">Kontakt</div>
+          <h2 class="h3">Projekt im Kopf?</h2>
+          <p>Erzählen Sie uns kurz, worum es geht. Lieber direkt? Rufen Sie uns an oder schreiben Sie uns auf WhatsApp.</p>
+          <div class="c-direct">
+            <a href="tel:+4319974162">+43 1 997 41 62</a>
+            <a href="mailto:info@baudrauf.at">info@baudrauf.at</a>
+            <span class="small t-d64">Mo bis Fr 08:00 bis 19:00, Sa 08:00 bis 14:00</span>
+          </div>
+          <a class="btn outline" href="https://wa.me/436606004060"><span class="mask"><span class="lbl">WhatsApp schreiben</span></span><span class="ico"><svg><use href="#arr"/></svg></span><span class="bg"></span></a>
+        </div>
+        <figure class="testi" style="margin:0">
+          <div class="stars" aria-label="Google Bewertung 4,9 von 5"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><span class="score small">4,9 auf Google</span></div>
+          <blockquote style="margin:0">„Wir haben kürzlich die Dienste der Firma "Baudrauf" in Anspruch genommen, um unsere alte Gasheizung gegen eine moderne Wärmepumpe auszutauschen. Von Anfang bis Ende waren wir mit der Leistung des Teams äußerst zufrieden.“</blockquote>
+          <figcaption style="display:flex;flex-direction:column;gap:2px"><span class="small">Wolfgang S.</span><span class="small t-l64">1220 Wien, Luftwärmepumpe, 07.2024</span><span class="small t-l64" style="margin-top:8px">Google: 4,9 aus 47 Rezensionen, Stand 09.10.2026</span></figcaption>
+        </figure>
+      </div>
+      <div class="c-right">
+        <form class="form-card" id="contactForm" novalidate>
+          <h3 class="h5">Ihre Anfrage</h3>
+          <div class="form-inner">
+            <div class="field"><label class="label-1" for="f-name">Name</label><input class="input" id="f-name" name="name" type="text" placeholder="Vor- und Nachname" autocomplete="name" required><span class="err-msg">Bitte geben Sie Ihren Namen an.</span></div>
+            <div class="halves">
+              <div class="field"><label class="label-1" for="f-tel">Telefon</label><input class="input" id="f-tel" name="tel" type="tel" placeholder="+43" autocomplete="tel" required><span class="err-msg">Bitte geben Sie eine Telefonnummer an.</span></div>
+              <div class="field"><label class="label-1" for="f-mail">E-Mail</label><input class="input" id="f-mail" name="email" type="email" placeholder="E-Mail Adresse" autocomplete="email"></div>
+            </div>
+            <div class="halves">
+              <div class="field"><label class="label-1" for="f-area">Bereich</label><select class="input" id="f-area" name="bereich"><option value="">Bitte wählen</option><option>Bau &amp; Sanierung</option><option>Gebäudetechnik</option><option>Beides</option></select></div>
+              <div class="field"><label class="label-1" for="f-plz">PLZ</label><input class="input" id="f-plz" name="plz" type="text" inputmode="numeric" placeholder="z. B. 1220" autocomplete="postal-code"></div>
+            </div>
+            <div class="field"><label class="label-1" for="f-msg">Nachricht</label><textarea class="input" id="f-msg" name="nachricht" placeholder="Worum geht es bei Ihrem Projekt?"></textarea></div>
+            <label class="check"><input type="checkbox" name="agb" required><span>Ich bin mit den AGB und den Datenschutzbestimmungen der Baudrauf GmbH einverstanden.</span></label>
+          </div>
+          <div class="form-bottom">
+            <div class="small t-d64"><span class="ph">PLATZHALTER: Antwortzeit, nur wenn BAUDRAUF sie bestätigt</span><br>Ihre Daten werden nicht an Dritte weitergereicht.</div>
+            <button class="btn accent" type="submit"><span class="mask"><span class="lbl">Anfrage senden</span></span><span class="ico"><svg><use href="#arr"/></svg></span><span class="bg"></span></button>
+          </div>
+          <div class="form-state" role="status"><div class="h6">Danke, Ihre Anfrage ist da.</div><p class="t-d88">Konzept: Dieses Formular sendet noch nichts. Im echten Einsatz geht die Anfrage an info@baudrauf.at.</p></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 9. CTA band ===== -->
+<section class="cta" aria-label="Projekt anfragen">
+  <img src="images/lwp-kaskade-bosch-dach-donaustadt.webp" alt="Bosch Luftwärmepumpen in Kaskade am Dach in Wien Donaustadt bei Sonnenuntergang" loading="lazy">
+  <div class="ov-l"></div><div class="ov-b"></div>
+  <div class="container" style="z-index:2">
+    <div class="content">
+      <h2 class="h2">Bau und Haustechnik.<br>Aus einer Hand.</h2>
+      <div class="btn-row">
+        <a class="btn accent" href="#" data-open-modal><span class="mask"><span class="lbl">Projekt anfragen</span></span><span class="ico"><svg><use href="#arr"/></svg></span><span class="bg"></span></a>
+        <a class="btn lightbtn" href="tel:+4319974162"><span class="mask"><span class="lbl">+43 1 997 41 62</span></span><span class="bg"></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== 10. Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="f-content">
+      <div class="f-halves">
+        <div class="f-left">
+          <img src="../brand/baudrauf-logo-white-471x300.png" alt="BAUDRAUF" width="120" height="76">
+          <div class="t">
+            <p>BAUDRAUF GmbH<br>Hirschstettner Str. 19/I, 1220 Wien</p>
+            <p><a class="f-link" href="tel:+4319974162">+43 1 997 41 62</a><br><a class="f-link" href="mailto:info@baudrauf.at">info@baudrauf.at</a></p>
+            <p>Mo bis Fr 08:00 bis 19:00<br>Sa 08:00 bis 14:00</p>
+          </div>
+        </div>
+        <div class="f-right">
+          <div class="f-col open"><div class="hd label-1">Bau &amp; Sanierung<span class="plus"></span></div><div class="links"><div><a class="f-link" href="#">Neubau</a><a class="f-link" href="#">Altbausanierung</a><a class="f-link" href="#">Wohnungsrenovierung</a><a class="f-link" href="#">Dachgeschossausbau</a><a class="f-link" href="#">Badsanierung</a><a class="f-link" href="#">Fassade &amp; Wärmedämmung</a><a class="f-link" href="#">Alle Gewerke</a></div></div></div>
+          <div class="f-col"><div class="hd label-1">Gebäudetechnik<span class="plus"></span></div><div class="links"><div><a class="f-link" href="#">Wärmepumpe</a><a class="f-link" href="#">Photovoltaik</a><a class="f-link" href="#">Heizung &amp; Gastherme</a><a class="f-link" href="#">Sanitär</a><a class="f-link" href="#">Klimaanlage</a><a class="f-link" href="#">Energieberatung</a></div></div></div>
+          <div class="f-col"><div class="hd label-1">Unternehmen<span class="plus"></span></div><div class="links"><div><a class="f-link" href="#projekte">Projekte</a><a class="f-link" href="#">Kosten &amp; Förderung</a><a class="f-link" href="#">Für Unternehmen</a><a class="f-link" href="#">Ratgeber</a><a class="f-link" href="#ueber-uns">Über uns</a><a class="f-link" href="#">Karriere</a><a class="f-link" href="#kontakt">Kontakt</a></div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="f-rule"></div>
+        <div class="f-bottom small" style="padding:24px 0">
+          <span>© 2026 BAUDRAUF GmbH · FN 588522z, Handelsgericht Wien · UID ATU78599214</span>
+          <span class="legal"><a class="f-link" href="#">Impressum</a> · <a class="f-link" href="#">AGB</a> · <a class="f-link" href="#">Datenschutz</a></span>
+        </div>
+        <div class="f-rule"></div>
+        <div class="f-bottom small" style="padding-top:24px">
+          <span>Designkonzept für BAUDRAUF, nicht veröffentlicht. Alle Fakten, Projekte und Stimmen stammen von baudrauf.at.</span>
+          <span class="f-social">
+            <a href="https://facebook.com/baudrauf" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5H16l.4-3H13.5V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21z"/></svg></a>
+            <a href="https://instagram.com/baudrauf" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".8" fill="currentColor"/></svg></a>
+            <a href="https://at.linkedin.com/company/baudrauf-gmbh" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 9h3v11h-3zM6 4a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 6 4zm4 5h2.9v1.5c.4-.8 1.4-1.7 3-1.7 3.2 0 3.6 2.1 3.6 4.8V20h-3v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V20h-3z"/></svg></a>
+            <a href="https://www.youtube.com/channel/UCyBSKOIsIolgQzLFwsqx_Ow" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.5 2.5 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Modal: Projekt anfragen (every request button opens this one form) ===== -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="box">
+    <div class="m-left">
+      <img src="images/maler-gewoelbegang-sanierung.jpg" alt="Sanierter Gewölbegang" loading="lazy">
+      <div class="who"><span class="ph" style="align-self:flex-start">PLATZHALTER: Foto Ansprechperson</span><span class="semibold">BAUDRAUF Projektanfrage</span><span class="small">Ein Formular für jede Anfrage.</span></div>
+    </div>
+    <div class="m-right">
+      <div class="m-head"><h3 class="h5" id="modalTitle">Projekt anfragen</h3><button class="close" type="button" aria-label="Schließen" data-close><svg width="16" height="16"><use href="#close"/></svg></button></div>
+      <form class="form-inner" id="modalForm" novalidate style="gap:16px">
+        <div class="field"><label class="label-1" for="m-name">Name</label><input class="input" id="m-name" type="text" placeholder="Vor- und Nachname" required><span class="err-msg">Bitte geben Sie Ihren Namen an.</span></div>
+        <div class="halves">
+          <div class="field"><label class="label-1" for="m-tel">Telefon</label><input class="input" id="m-tel" type="tel" placeholder="+43" required><span class="err-msg">Bitte geben Sie eine Telefonnummer an.</span></div>
+          <div class="field"><label class="label-1" for="m-area">Bereich</label><select class="input" id="m-area"><option value="">Bitte wählen</option><option>Bau &amp; Sanierung</option><option>Gebäudetechnik</option><option>Beides</option></select></div>
+        </div>
+        <div class="field"><label class="label-1" for="m-msg">Nachricht</label><textarea class="input" id="m-msg" placeholder="Worum geht es bei Ihrem Projekt?"></textarea></div>
+        <label class="check"><input type="checkbox" required><span class="small">Ich bin mit den AGB und den Datenschutzbestimmungen der Baudrauf GmbH einverstanden.</span></label>
+        <div class="form-bottom"><span class="small t-d64">Oder direkt: <a href="tel:+4319974162">+43 1 997 41 62</a></span><button class="btn accent" type="submit"><span class="mask"><span class="lbl">Anfrage senden</span></span><span class="ico"><svg><use href="#arr"/></svg></span><span class="bg"></span></button></div>
+        <div class="form-state" role="status"><div class="h6">Danke, Ihre Anfrage ist da.</div><p class="t-d88">Konzept: Dieses Formular sendet noch nichts.</p></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal vmodal" id="vmodal" role="dialog" aria-modal="true" aria-label="Kundenvideo">
+  <div class="box">
+    <div class="vbar"><span class="small" id="vtitle"></span><button class="close" type="button" aria-label="Schließen" data-close><svg width="16" height="16"><use href="#close"/></svg></button></div>
+    <video id="vplayer" controls playsinline preload="none"></video>
+  </div>
+</div>
+
+<script>
+(() => {
+  // Client logos (22 distinct files from baudrauf.at; 12 and 17 are both Helvetia, 17 dropped)
+  const logos = [
+    ['01','ZURICH'],['02','UNIQA'],['03','Volksbank'],['04','Wiener Städtische'],['05','WOSSA'],['06','Bank Austria'],
+    ['07','Banner Immobilien'],['08','WIENER MISO'],['09','Cavallo'],['10','EBE Solutions'],['11','Hammerl Immobilien Management'],
+    ['12','Helvetia'],['13','Otto Friedrich & Partner'],['14','Niederösterreichische Versicherung'],['15','Adler Versicherungsagentur'],
+    ['16','BFI Wien'],['18','Marchfelder Bank'],['19','OBJEKTA'],['21','R.O.Y Real Immobilienverwaltung'],['22','SiL'],['23','TEZYO'],['24','WEVIG']
+  ];
+  document.querySelectorAll('[data-logos]').forEach((g, gi) => {
+    g.innerHTML = logos.map(([n, a]) => `<img src="images/logos/kunde-${n}.webp" alt="${gi ? '' : 'Kundenlogo ' + a}" width="55" height="30">`).join('');
+  });
+  const imgs = [
+    ['tezyo-shop-scs-voesendorf.jpg','Tezyo Shop, SCS Vösendorf',0],
+    ['kartonage-kitchen-1080-fassade.jpg','Kartonage Kitchen, 1080 Wien',1],
+    ['maler-gewoelbegang-sanierung.jpg','Sanierter Gewölbegang',0],
+    ['kueche-kochinsel.jpg','Küche mit Kochinsel',1],
+    ['gartengestaltung-leopoldsdorf.webp','Gartengestaltung, 2333 Leopoldsdorf',0],
+    ['dachgaube-spenglerarbeiten.webp','Neue Dachgaupe mit Spenglerarbeiten',1],
+    ['villa-garten-hero-slide1.webp','Villa mit Steingarten',0],
+    ['gewerbe-gastrolokal-umbau.jpg','Umgebautes Gastronomielokal',1]
+  ];
+  document.querySelectorAll('[data-imgs]').forEach((g, gi) => {
+    g.innerHTML = imgs.map(([f, a, lg]) => `<figure class="${lg ? 'lg' : ''}"><img src="images/${f}" alt="${gi ? '' : a}" loading="lazy"></figure>`).join('');
+  });
+
+  // Logo marquee: blur-in when it enters the viewport, then scroll (template a-107 + a-108)
+  const lg = document.getElementById('logos');
+  new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { lg.classList.add('in'); o.disconnect(); } }), { threshold: .2 }).observe(lg);
+
+  // Button labels: split into characters for the roll (template IX3 t-98a741aa)
+  document.querySelectorAll('.btn .lbl').forEach(l => {
+    const t = l.textContent; const b = l.closest('.btn'); if (!b.hasAttribute('aria-label')) b.setAttribute('aria-label', t); l.textContent = '';
+    [...t].forEach((c, i, arr) => { const s = document.createElement('span'); s.className = 'ch'; s.setAttribute('aria-hidden', 'true'); s.textContent = c; s.style.transitionDelay = (i / Math.max(arr.length - 1, 1) * .1).toFixed(3) + 's'; l.appendChild(s); });
+  });
+
+  // Fixed nav: clone of the static one, slides in once the page has scrolled (IX3 t-604cc18a)
+  const stat = document.getElementById('navStatic');
+  const fixed = stat.cloneNode(true); fixed.id = 'navFixed'; fixed.classList.add('fixed');
+  stat.after(fixed);
+  const onScroll = () => { const on = scrollY > Math.max(120, document.body.scrollHeight * .01); fixed.classList.toggle('show', on); fixed.inert = !on; };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Mobile menu
+  const mm = document.getElementById('mobileMenu');
+  document.addEventListener('click', e => {
+    if (e.target.closest('[data-menu]')) { mm.classList.toggle('open'); mm.setAttribute('aria-hidden', !mm.classList.contains('open')); }
+    if (e.target.closest('[data-menu-link]')) mm.classList.remove('open');
+  });
+
+  // Services: hover swaps the left image (template dropdown-images a-135/a-136)
+  const media = [...document.querySelectorAll('#svcMedia img')];
+  const show = i => media.forEach((m, k) => m.classList.toggle('on', k === i));
+  document.querySelectorAll('.svc').forEach(s => {
+    s.addEventListener('mouseenter', () => show(+s.dataset.img));
+    s.addEventListener('focus', () => show(+s.dataset.img));
+  });
+  document.querySelector('.svc-list').addEventListener('mouseleave', () => show(0));
+
+  // Process slider: 564px mask, overflow visible, 500ms ease, wraps around
+  const sl = document.querySelector('[data-slider]');
+  const tr = sl.querySelector('.sl-track'); const n = tr.children.length; let si = 0;
+  const go = i => { si = (i + n) % n; const w = tr.children[0].getBoundingClientRect().width + 16; tr.style.transform = `translateX(${-si * w}px)`; };
+  sl.querySelector('.next').onclick = () => go(si + 1); sl.querySelector('.prev').onclick = () => go(si - 1);
+  addEventListener('resize', () => go(si));
+
+  // Customer voices: 80% slides, background crossfade, autoplay (template: 2000ms, 600ms ease-in-out-circ)
+  const v = document.getElementById('stimmen');
+  const lt = v.querySelector('.l-track'); const ln = lt.children.length; const bgs = v.querySelectorAll('.bgs img'); let li = 0, timer;
+  const lgo = i => { li = (i + ln) % ln; const w = lt.children[0].getBoundingClientRect().width + 16; lt.style.transform = `translateX(${-li * w}px)`; bgs.forEach((b, k) => b.classList.toggle('on', k === li)); };
+  const auto = () => { clearInterval(timer); timer = setInterval(() => lgo(li + 1), 4000); };
+  v.querySelector('[data-l-next]').onclick = () => { lgo(li + 1); auto(); };
+  v.querySelector('[data-l-prev]').onclick = () => { lgo(li - 1); auto(); };
+  v.addEventListener('mouseenter', () => clearInterval(timer));
+  addEventListener('resize', () => lgo(li));
+  const still = new URLSearchParams(location.search).has('static'); // ?static pauses autoplay for screenshots
+  if (!still) { auto(); v.addEventListener('mouseleave', auto); }
+
+  // Modals
+  const open = m => { m.classList.add('open'); requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('show'))); document.body.style.overflow = 'hidden'; };
+  const close = m => { m.classList.remove('show'); setTimeout(() => { m.classList.remove('open'); document.body.style.overflow = ''; const vid = m.querySelector('video'); if (vid) { vid.pause(); vid.removeAttribute('src'); vid.load(); } }, 300); };
+  const modal = document.getElementById('modal'), vmodal = document.getElementById('vmodal');
+  document.addEventListener('click', e => {
+    if (e.target.closest('[data-open-modal]')) { e.preventDefault(); mm.classList.remove('open'); open(modal); }
+    const c = e.target.closest('.lcase');
+    if (c && (e.target.closest('[data-play]') || e.target.closest('.limg'))) { const p = document.getElementById('vplayer'); p.src = c.dataset.video; document.getElementById('vtitle').textContent = c.dataset.title; open(vmodal); p.play().catch(() => {}); }
+    if (e.target.closest('[data-close]') || e.target.classList.contains('modal')) close(e.target.closest('.modal'));
+  });
+  addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(close); });
+
+  // Forms: designed states, no submission (concept)
+  document.querySelectorAll('select.input').forEach(s => s.addEventListener('change', () => s.classList.toggle('chosen', !!s.value)));
+  ['contactForm', 'modalForm'].forEach(id => {
+    const f = document.getElementById(id);
+    f.addEventListener('submit', e => {
+      e.preventDefault(); let ok = true;
+      f.querySelectorAll('[required]').forEach(i => { const bad = i.type === 'checkbox' ? !i.checked : !i.value.trim(); const fld = i.closest('.field'); if (fld) fld.classList.toggle('err', bad); else i.style.borderColor = bad ? '#c9372d' : ''; if (bad) ok = false; });
+      if (ok) f.classList.add('sent');
+    });
+  });
+
+  // Footer accordions on mobile (template a-91/a-92)
+  document.querySelectorAll('.f-col .hd').forEach(h => h.addEventListener('click', () => { if (matchMedia('(max-width: 767px)').matches) h.parentElement.classList.toggle('open'); }));
+})();
+</script>
+</body>
+</html>
