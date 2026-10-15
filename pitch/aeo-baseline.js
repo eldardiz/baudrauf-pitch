@@ -1,7 +1,7 @@
 // AI answer-engine snapshot for the pitch hub. Written ONLY from aeo-kit run 2026-10-baseline after Eldar
 // confirmed every label (aeo-kit rule 2). Values: mentioned | cited-only | no | n/a (no AI answer shown).
 window.BD_BASELINE = {
- "date": "15 October 2026",
+ "date": "15. Oktober 2026",
  "method": "browser",
  "confirmed_by": "Eldar, 2026-10-15",
  "engines": {
